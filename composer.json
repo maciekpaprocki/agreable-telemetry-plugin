@@ -1,0 +1,14 @@
+{
+    "name": "shortlist-digital/telemetry-plugin",
+    "description": "Telemetry plugin for WordPress",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Sherrard",
+            "email": "jon@andthats.it"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

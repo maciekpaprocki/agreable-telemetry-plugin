@@ -14,7 +14,7 @@ return [
     'requires' => [
         __DIR__ . '/app/customPostTypes.php'
     ],
-    
+
     /**
      * The tables to manage.
      */
@@ -61,32 +61,32 @@ return [
      * The routes to auto-load.
      */
     'routes' => [
-        'MyPlugin' => __DIR__ . '/app/routes.php'
+        'AgreableTelemetryPlugin' => __DIR__ . '/app/routes.php'
     ],
 
     /**
      * The panels to auto-load.
      */
     'panels' => [
-        'MyPlugin' => __DIR__ . '/app/panels.php'
+        'AgreableTelemetryPlugin' => __DIR__ . '/app/panels.php'
     ],
 
     /**
      * The APIs to auto-load.
      */
     'apis' => [
-        'MyPlugin' => __DIR__ . '/app/api.php'
+        'AgreableTelemetryPlugin' => __DIR__ . '/app/api.php'
     ],
 
     /**
      * The view paths to register.
      *
-     * E.G: 'MyPlugin' => __DIR__ . '/views'
-     * can be referenced via @MyPlugin/
+     * E.G: 'AgreableTelemetryPlugin' => __DIR__ . '/views'
+     * can be referenced via @AgreableTelemetryPlugin/
      * when rendering a view in twig.
      */
     'views' => [
-        'MyPlugin' => __DIR__ . '/resources/views'
+        'AgreableTelemetryPlugin' => __DIR__ . '/resources/views'
     ],
 
     /**

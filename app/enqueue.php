@@ -1,4 +1,4 @@
-<?php namespace MyPlugin;
+<?php namespace AgreableTelemetryPlugin;
 
 /** @var \Herbert\Framework\Enqueue $enqueue */
 

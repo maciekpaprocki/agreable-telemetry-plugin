@@ -1,4 +1,4 @@
-<?php namespace MyPlugin;
+<?php namespace AgreableTelemetryPlugin;
 
 class Helper {
 

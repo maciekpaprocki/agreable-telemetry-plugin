@@ -1,10 +1,10 @@
-<?php namespace MyPlugin;
+<?php namespace AgreableTelemetryPlugin;
 
 /** @var \Herbert\Framework\API $api */
 
 /**
  * Gives you access to the Helper class from Twig
- * {{ MyPlugin.helper('assetUrl', 'icon.png') }}
+ * {{ AgreableTelemetryPlugin.helper('assetUrl', 'icon.png') }}
  */
 $api->add('helper', function ()
 {

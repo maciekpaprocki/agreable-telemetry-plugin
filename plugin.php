@@ -13,3 +13,19 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/vendor/getherbert/framework/bootstrap/autoload.php';
+
+use add_action;
+
+class AgreableTelemetryPlugin
+{
+    public function __construct()
+    {
+        add_action('save_post', array($this, 'registerOrUpdateAcquisition'));
+    }
+
+    public function registerOrUpdateAcquisition()
+    {
+    }
+}
+
+new AgreableTelemetryPlugin();

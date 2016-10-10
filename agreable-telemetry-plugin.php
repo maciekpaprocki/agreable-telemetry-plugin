@@ -20,7 +20,7 @@ class AgreableTelemetryPlugin
     }
     public function register_custom_fields()
     {
-        //include_once('custom-fields/acquisition-widget.php');
+        include_once('custom-fields/options-panel.php');
     }
 }
 new AgreableTelemetryPlugin();

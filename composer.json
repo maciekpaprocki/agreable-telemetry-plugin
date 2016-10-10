@@ -3,7 +3,6 @@
   "description": "Telemetry plugin for WordPress",
   "type": "wordpress-plugin",
   "license": "MIT",
-  "license": "MIT",
   "authors": [
     {
       "name": "Jon Sherrard",

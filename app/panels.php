@@ -1,3 +1,3 @@
 <?php namespace AgreableTelemetryPlugin;
 
-/** @var \Herbert\Framework\Panel $panel */
+include_once(__DIR__ . '/../custom-fields/options-panel.php');

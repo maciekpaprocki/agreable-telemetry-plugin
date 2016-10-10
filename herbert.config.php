@@ -12,7 +12,6 @@ return [
      * Auto-load all required files.
      */
     'requires' => [
-        __DIR__ . '/app/customPostTypes.php'
     ],
 
     /**

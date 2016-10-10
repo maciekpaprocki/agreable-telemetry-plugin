@@ -22,41 +22,6 @@ return [
 
 
     /**
-     * Activate
-     */
-    'activators' => [
-        __DIR__ . '/app/activate.php'
-    ],
-
-    /**
-     * Deactivate
-     */
-    'deactivators' => [
-        __DIR__ . '/app/deactivate.php'
-    ],
-
-    /**
-     * The shortcodes to auto-load.
-     */
-    'shortcodes' => [
-        __DIR__ . '/app/shortcodes.php'
-    ],
-
-    /**
-     * The widgets to auto-load.
-     */
-    'widgets' => [
-        __DIR__ . '/app/widgets.php'
-    ],
-
-    /**
-     * The styles and scripts to auto-load.
-     */
-    'enqueue' => [
-        __DIR__ . '/app/enqueue.php'
-    ],
-
-    /**
      * The routes to auto-load.
      */
     'routes' => [

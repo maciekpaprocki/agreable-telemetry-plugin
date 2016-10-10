@@ -1,0 +1,42 @@
+{
+    "id": null,
+    "type": "promotion",
+    "team_id": 1,
+    "brand_id": [9],
+    "url": "http://www.google.co.uk/",
+    "competition": {
+        "id": null,
+        "question": "What is the name of the famous road in NYC where you can see the main musical and theatrical productions?",
+        "answers": [
+            {
+                "id": null,
+                "name": "Broadway",
+                "correct": "true"
+            },
+            {
+                "id": null,
+                "name": "West End",
+                "correct": "false"
+            },
+            {
+                "id": null,
+                "name": "Oxford Street",
+                "correct": "false"
+            }
+        ],
+    },
+    "promotion": {
+        "id": null,
+        "name": "Two-for-one cocktails with BarChick"
+    },
+    "third_party_optins": [
+        {
+            "id": null,
+            "name": "Something Newsletter"
+        },
+        {
+            "id": null,
+            "name": "Something else newsletter"
+        }
+    ]
+}

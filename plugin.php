@@ -15,16 +15,44 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/vendor/getherbert/framework/bootstrap/autoload.php';
 
 use add_action;
+use TimberPost;
+use AgreableWidgetService;
+use AgreableTelemetryPlugin\Controllers\UpdateAcquisition;
+use AgreableTelemetryPlugin\Controllers\RegisterAcquisition;
 
 class AgreableTelemetryPlugin
 {
     public function __construct()
     {
-        add_action('save_post', array($this, 'registerOrUpdateAcquisition'));
+        add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
     }
 
-    public function registerOrUpdateAcquisition()
+    public function registerOrUpdateAcquisition($post_id, $post, $update)
     {
+        $post = new TimberPost($post_id);
+        if ($telemetryData = $this->containsWidget($post)) {
+            if ($update) {
+                new UpdateAcquisition($telemetryData);
+            } else {
+                new RegisterAcquisition($telemetryData);
+            }
+        }
+    }
+
+    public function containsWidget($post)
+    {
+        $matched_widgets = [];
+        foreach ($post->get_field('widgets') as $widget) {
+            if ($widget['acf_fc_layout'] === 'telemetry_acquisition') {
+                $matched_widgets[] = $widget;
+            }
+        }
+
+        if (count($matched_widgets) === 0) {
+            return null;
+        } else {
+            return $matched_widgets[0];
+        }
     }
 }
 

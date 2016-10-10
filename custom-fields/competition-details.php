@@ -9,6 +9,13 @@ return array(
         'placeholder' => 'What is the new Burger King burger called?',
     ),
     array(
+        'key' => 'telemetry_acqusition_competition_telemetry_id',
+        'name' => 'telemetry_id',
+        'label' => 'Telemetry ID',
+        'type' => 'text',
+        'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden'
+    ),
+    array(
         'key' => 'telemetry_acquisition_competition_answers',
         'label' => 'Answers',
         'name' => 'competition_answers',
@@ -32,6 +39,13 @@ return array(
                 'type' => 'true_false',
                 'instructions' => 'Tick one of these boxes to represent the correct answer',
             ),
+            array(
+                'key' => 'telemetry_acqusition_compeition_answers_answer_telemetry_d',
+                'label' => 'Telemetry ID',
+                'name' => 'telemetry_id',
+                'type' => 'text',
+                'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden'
+            )
         ),
     ),
 );

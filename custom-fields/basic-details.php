@@ -19,6 +19,16 @@ return array(
         ),
     ),
     array(
+        'key' => 'telemetry_acqusition_telemetry_id',
+        'name' => 'telemetry_id',
+        'label' => 'Telemetry ID',
+        'type' => 'text',
+        'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
+        'wrapper' => array(
+            'class' => 'acf-hide',
+        ),
+    ),
+    array(
         'key' => 'telemetry_acquisition_start_time',
         'label' => 'Start Time',
         'name' => 'start_time',

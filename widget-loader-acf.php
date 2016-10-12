@@ -53,6 +53,7 @@ $widget_config = array(
         $basic_details_config[1],
         $basic_details_config[2],
         $basic_details_config[3],
+        $basic_details_config[4],
         array(
             'key' => 'telemetry_acquisition_competition_details_tab',
             'label' => 'Competition Details',

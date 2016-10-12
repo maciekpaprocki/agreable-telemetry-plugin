@@ -23,5 +23,15 @@ return array(
             'type' => 'text',
             'placeholder' => 'Would you like to receive updates from Burger King?',
         ),
+        array(
+            'key' => 'telemetry_acqusition_optin_optin_telemetry_id',
+            'name' => 'telemetry_id',
+            'label' => 'Telemetry ID',
+            'type' => 'text',
+            'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
+            'wrapper' => array(
+                'class' => 'acf-hide',
+            ),
+        ),
     ),
 );

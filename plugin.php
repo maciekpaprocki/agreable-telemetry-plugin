@@ -25,6 +25,13 @@ class AgreableTelemetryPlugin
     public function __construct()
     {
         add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
+        add_action('admin_enqueue_scripts', array($this, 'css_overrides'), 10, 3);
+    }
+
+
+    public function css_overrides()
+    {
+        wp_add_inline_style('custom-style', ".acf-hide, th.acf-th.acf-th-text[data-key='telemetry_acqusition_compeition_answers_answer_telemetry_id'] { display: none !important; }");
     }
 
     public function registerOrUpdateAcquisition($post_id, $post, $update)
@@ -41,8 +48,11 @@ class AgreableTelemetryPlugin
 
     public function containsWidget($post)
     {
+        if (!$widgets = $post->get_field('widgets')) {
+            return;
+        }
         $matched_widgets = [];
-        foreach ($post->get_field('widgets') as $widget) {
+        foreach ($widgets as $widget) {
             if ($widget['acf_fc_layout'] === 'telemetry_acquisition') {
                 $matched_widgets[] = $widget;
             }

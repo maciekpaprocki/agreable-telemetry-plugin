@@ -36,12 +36,15 @@ class AgreableTelemetryPlugin
 
     public function registerOrUpdateAcquisition($post_id, $post, $update)
     {
+        if (wp_is_post_revision($post)) {
+            return;
+        }
         $post = new TimberPost($post_id);
         if ($telemetryData = $this->containsWidget($post)) {
-            if ($update) {
-                new UpdateAcquisition($telemetryData);
+            if (!empty($telemetryData['telemetry_id'])) {
+                new UpdateAcquisition($telemetryData, $post);
             } else {
-                new RegisterAcquisition($telemetryData);
+                new RegisterAcquisition($telemetryData, $post);
             }
         }
     }

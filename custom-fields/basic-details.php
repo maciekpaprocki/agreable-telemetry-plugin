@@ -61,7 +61,7 @@ return array(
     array(
      'key' => 'telemetry_acquisition_additional_features',
      'label' => 'Select additional features to reveal their configuration tabs',
-     'name' => 'additional_feautres',
+     'name' => 'additional_features',
      'type' => 'checkbox',
      'choices' => array(
          'voucher' => 'Send Voucher',

@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "getherbert/framework": "~0.9"
+    "getherbert/framework": "~0.9",
+    "guzzlehttp/guzzle": "~6.0"
   },
   "config": {
     "preferred-install": "dist"

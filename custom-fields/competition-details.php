@@ -6,6 +6,7 @@ return array(
         'name' => 'competition_question',
         'type' => 'strict_wysiwyg',
         'simplify' => true,
+        'no_return' => true,
         'placeholder' => 'What is the new Burger King burger called?',
     ),
     array(
@@ -35,6 +36,7 @@ return array(
             array(
                 'key' => 'telemetry_acqusition_compeition_answers_answer_telemetry_id',
                 'label' => 'Telemetry ID',
+                'name' => 'telemetry_id',
                 'type' => 'text',
                 'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
                 'wrapper' => array(

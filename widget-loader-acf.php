@@ -90,6 +90,7 @@ $widget_config = array(
             'name' => 'terms_and_conditions_label',
             'type' => 'strict_wysiwyg',
             'simplify' => true,
+            'no_return' => true,
             'default_value' => 'I accept the terms and conditions'
         ),
         array(

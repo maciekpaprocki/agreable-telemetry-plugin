@@ -12,7 +12,7 @@ class PayloadBuilder
         }
         $payload['promotion'] = [
             'name' => $post->title,
-            'id' => $post->ID
+            'id' => $telemetryData['promotion_telemetry_id']
         ];
         if (!empty($telemetryData['additional_features'])) {
             if (in_array('optins', $telemetryData['additional_features'])) {
@@ -42,7 +42,7 @@ class PayloadBuilder
     public function buildCompetition($telemetryData)
     {
         return [
-            'id' => null,
+            'id' => $telemetryData['competition_telemetry_id'],
             'question' => $telemetryData['competition_question'],
             'answers' => self::buildAnswers($telemetryData['competition_answers'])
         ];

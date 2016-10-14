@@ -10,6 +10,17 @@ return array(
         'placeholder' => 'What is the new Burger King burger called?',
     ),
     array(
+        'key' => 'telemetry_acqusition_competition_question_telemetry_id',
+        'label' => 'Telemetry ID',
+        'name' => 'competition_telemetry_id',
+        'type' => 'text',
+        'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
+        'wrapper' => array(
+            'width' => '0%',
+            'class' => 'acf-hide',
+        ),
+    ),
+    array(
         'key' => 'telemetry_acquisition_competition_answers',
         'label' => 'Answers',
         'name' => 'competition_answers',

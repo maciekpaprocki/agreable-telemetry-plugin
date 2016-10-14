@@ -1,6 +1,7 @@
 <?php namespace AgreableTelemetryPlugin\Controllers;
 
 use AgreableTelemetryPlugin\Controllers\PayloadBuilder;
+use AgreableTelemetryPlugin\Services\TelemetryResponseHandler;
 use TimberPost;
 use get_field;
 use GuzzleHttp\Client;
@@ -9,13 +10,14 @@ class RegisterAcquisition
 {
     public function __construct($telemetryData, $post)
     {
+        $this->telemetryData = $telemetryData;
         $baseUri = "http://local.telemetry.report/";
         $this->payload = PayloadBuilder::build($telemetryData, $post);
         $this->client = new Client([
             'base_uri' => $baseUri,
-            'timeout'  => 20.0
+            'timeout'  => 10.0
         ]);
-        $this->doRegister();
+        return $this->doRegister();
     }
 
     public function doRegister()
@@ -28,7 +30,9 @@ class RegisterAcquisition
                 'query' => ['api_token' => $token]
             ]
         );
-        print_r($response->getBody());
-        die;
+        $body = (string) $response->getBody();
+        $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
+        $telemetryDataToSave = new TelemetryResponseHandler($responseObject, $this->telemetryData);
+        return $telemetryDataToSave;
     }
 }

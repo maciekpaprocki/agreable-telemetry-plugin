@@ -54,6 +54,7 @@ $widget_config = array(
         $basic_details_config[2],
         $basic_details_config[3],
         $basic_details_config[4],
+        $basic_details_config[5],
         array(
             'key' => 'telemetry_acquisition_competition_details_tab',
             'label' => 'Competition Details',
@@ -63,6 +64,7 @@ $widget_config = array(
         ),
         $competition_details_config[0],
         $competition_details_config[1],
+        $competition_details_config[2],
         array(
             'key' => 'telemetry_acquisition_optin_details_tab',
             'label' => 'Optin Details',

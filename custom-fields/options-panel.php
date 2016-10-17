@@ -12,7 +12,7 @@ $args = array(
   'parent_slug' => '',
   'icon_url' => 'dashicons-chart-area',
   'redirect' => true,
-  'post_id' => 'tlemetry-configuration',
+  'post_id' => 'telemetry-configuration',
   'autoload' => false,
 );
 
@@ -25,9 +25,9 @@ acf_add_local_field_group(array(
     'title' => 'Telemetry Configurations',
     'fields' => array(
         array(
-            'key' => 'telemetry_api_key',
+            'key' => 'telemetry_options_telemetry_api_key',
             'label' => 'Telemetry API Key',
-            'name' => 'api_key',
+            'name' => 'telemetry_api_key',
             'type' => 'text',
             'instructions' => 'The Telemetry API key for this top level account/team',
             'placeholder' => 'ABCDEFGHI123456789',
@@ -36,40 +36,18 @@ acf_add_local_field_group(array(
             ),
         ),
         array(
-            'key' => 'telemetry_default_brand_id',
+            'key' => 'telemetry_options_telemetry_default_brand_id',
             'label' => 'Default Brand ID',
-            'name' => 'default_brand_id',
-            'type' => 'number',
+            'name' => 'telemetry_default_brand_id',
+            'type' => 'select',
             'instructions' => 'The default Telemetry Brand ID for this site.',
             'placeholder' => '...',
             'wrapper' => array(
                 'width' => '49%',
             ),
-        ),
-        array(
-            'key' => 'telemetry_category_brand_id_map',
-            'label' => 'Telemetry Category Brand ID overrides',
-            'name' => 'category_brand_id_map',
-            'type' => 'repeater',
-            'layout' => 'table',
-            'button_label' => 'Add Category Brand override',
-            'sub_fields' => array(
-                array(
-                    'key' => 'category_dfp_id_map_category',
-                    'label' => 'Category',
-                    'name' => 'category',
-                    'type' => 'taxonomy',
-                    'taxonomy' => 'category',
-                    'field_type' => 'select',
-                    'return_format' => 'id',
-                ),
-                array(
-                    'key' => 'category_dfp_id_map_df_id',
-                    'label' => 'Telemetry Brand ID',
-                    'name' => 'dfp_id',
-                    'type' => 'number',
-                ),
-            ),
+            'choices' => array(
+
+            )
         ),
     ),
     'location' => array(

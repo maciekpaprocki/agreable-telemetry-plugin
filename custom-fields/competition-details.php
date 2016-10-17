@@ -45,7 +45,7 @@ return array(
                 'instructions' => 'Tick one of these boxes to represent the correct answer',
             ),
             array(
-                'key' => 'telemetry_acqusition_compeition_answers_answer_telemetry_id',
+                'key' => 'telemetry_acqusition_competition_answers_answer_telemetry_id',
                 'label' => 'Telemetry ID',
                 'name' => 'telemetry_id',
                 'type' => 'text',

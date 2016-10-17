@@ -2,14 +2,17 @@
 
 use AgreableTelemetryPlugin\Controllers\PayloadBuilder;
 use AgreableTelemetryPlugin\Services\TelemetryResponseHandler;
+use AgreableTelemetryPlugin\Services\WordPressMetaUpdater;
 use TimberPost;
 use get_field;
 use GuzzleHttp\Client;
 
 class RegisterAcquisition
 {
-    public function __construct($telemetryData, $post)
+    public function __construct($telemetryData, $post, $index)
     {
+        $this->post = $post;
+        $this->index = $index;
         $this->telemetryData = $telemetryData;
         $baseUri = "http://local.telemetry.report/";
         $this->payload = PayloadBuilder::build($telemetryData, $post);
@@ -22,7 +25,7 @@ class RegisterAcquisition
 
     public function doRegister()
     {
-        $token = "LvZ7R9Oyv9IROinatzJaJyX11fkXh4AsCe1x0ats7W1hnjxUpneE5O1Zq72H";
+        $token = get_field('telemetry_api_key', 'telemetry-configuration');
         $response = $this->client->post(
             "api/v1/acquisitions",
             [
@@ -32,7 +35,8 @@ class RegisterAcquisition
         );
         $body = (string) $response->getBody();
         $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
-        $telemetryDataToSave = new TelemetryResponseHandler($responseObject, $this->telemetryData);
-        return $telemetryDataToSave;
+        $handler = new TelemetryResponseHandler($responseObject, $this->telemetryData);
+        $telemetryDataToSave = $handler->getData();
+        $updater = new WordPressMetaUpdater($telemetryDataToSave, $this->index, $this->post);
     }
 }

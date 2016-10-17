@@ -19,17 +19,20 @@ use TimberPost;
 use AgreableWidgetService;
 use AgreableTelemetryPlugin\Controllers\UpdateAcquisition;
 use AgreableTelemetryPlugin\Controllers\RegisterAcquisition;
+use get_field;
+use GuzzleHttp\Client;
 
 class AgreableTelemetryPlugin
 {
     public function __construct()
     {
         add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
-        add_action('admin_enqueue_scripts', array($this, 'css_overrides'), 10, 3);
+        add_action('admin_enqueue_scripts', array($this, 'cssOverrides'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 10, 3);
     }
 
 
-    public function css_overrides()
+    public function cssOverrides()
     {
         wp_add_inline_style('custom-style', ".acf-hide, th.acf-th.acf-th-text[data-key='telemetry_acqusition_compeition_answers_answer_telemetry_id'] { display: none !important; }");
     }
@@ -40,11 +43,13 @@ class AgreableTelemetryPlugin
             return;
         }
         $post = new TimberPost($post_id);
-        if ($telemetryData = $this->containsWidget($post)) {
+        if ($widgetIndex = $this->containsWidget($post)) {
+            $widgets = $post->get_field('widgets');
+            $telemetryData = $widgets[$widgetIndex];
             if (!empty($telemetryData['telemetry_id'])) {
-                new UpdateAcquisition($telemetryData, $post);
+                new UpdateAcquisition($telemetryData, $post, $widgetIndex);
             } else {
-                new RegisterAcquisition($telemetryData, $post);
+                new RegisterAcquisition($telemetryData, $post, $widgetIndex);
             }
         }
     }
@@ -54,18 +59,36 @@ class AgreableTelemetryPlugin
         if (!$widgets = $post->get_field('widgets')) {
             return;
         }
-        $matched_widgets = [];
-        foreach ($widgets as $widget) {
+        foreach ($widgets as $index => $widget) {
             if ($widget['acf_fc_layout'] === 'telemetry_acquisition') {
-                $matched_widgets[] = $widget;
+                return $index;
             }
         }
+        return false;
+    }
 
-        if (count($matched_widgets) === 0) {
-            return null;
-        } else {
-            return $matched_widgets[0];
+    public function loadBrands($field)
+    {
+        $baseUri = "http://local.telemetry.report/";
+        $token = get_field('telemetry_api_key', 'telemetry-configuration');
+        if ($token) {
+            $client = new Client([
+                'base_uri' => $baseUri,
+                'timeout'  => 10.0
+            ]);
+            $response = $client->get(
+                'api/v1/team/brand',
+                [
+                    'query' => ['api_token' => $token]
+                ]
+            );
+            $body = (string) $response->getBody();
+            $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
+            foreach ($responseObject['data'] as $key => $brand) {
+                $field['choices'][$brand['id']] = $brand['name'];
+            }
         }
+        return $field;
     }
 }
 

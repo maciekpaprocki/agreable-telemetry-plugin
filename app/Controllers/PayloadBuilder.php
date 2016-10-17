@@ -25,7 +25,7 @@ class PayloadBuilder
     public static function buildPayloadBase($telemetryData, $post)
     {
         return [
-            'id' => null,
+            'id' => $telemetryData['telemetry_id'],
             'type' => (!empty($telemetryData['data_to_capture'])
                 && in_array('competition', $telemetryData['data_to_capture']))
                 ? 'competition' : 'promotion',

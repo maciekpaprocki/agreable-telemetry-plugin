@@ -7,7 +7,7 @@ class TelemetryResponseHandler
         $this->response = $responseObject;
         $this->telemetryData = $telemetryData;
         if ($this->response['status'] == 200) {
-            return $this->mergeData($responseObject['data'], $telemetryData);
+            $this->dataToSave = $this->mergeData($responseObject['data'], $telemetryData);
         } else {
             echo "<h1>Unsuccessful response</h1>";
             echo "<pre>";
@@ -16,12 +16,29 @@ class TelemetryResponseHandler
         }
     }
 
+    public function getdata()
+    {
+        return $this->dataToSave;
+    }
+
     public function mergeData($responseData, $telemetryData)
     {
         //Set telemetry ID
-        echo "<pre>";
-        print_r($telemetryData);
-        die;
-        $telemetryData['id'] = $responseData['acquisition_id'];
+        $telemetryData['telemetry_id'] = $responseData['acquisition_id'];
+        if ($responseData['promotion'] && $responseData['promotion']['id']) {
+            $telemetryData['promotion_telemetry_id'] = $responseData['promotion']['id'];
+        }
+        if ($responseData['promotion'] && $responseData['promotion']['competition']) {
+            $telemetryData['competition_telemetry_id'] = $responseData['promotion']['competition']['id'];
+            foreach ($telemetryData['competition_answers'] as $index => &$answer) {
+                $answer['telemetry_id'] = $responseData['promotion']['competition']['answers'][$index]['id'];
+            }
+        }
+        if ($responseData['optins']) {
+            foreach ($telemetryData['optins'] as $index => &$optin) {
+                $optin['telemetry_id'] = $responseData['optins'][$index]['id'];
+            }
+        }
+        return $telemetryData;
     }
 }

@@ -41,7 +41,6 @@ acf_add_local_field_group(array(
             'name' => 'telemetry_default_brand_id',
             'type' => 'select',
             'instructions' => 'The default Telemetry Brand ID for this site.',
-            'placeholder' => '...',
             'wrapper' => array(
                 'width' => '49%',
             ),

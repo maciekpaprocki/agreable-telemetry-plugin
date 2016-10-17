@@ -109,6 +109,20 @@ $widget_config = array(
             'type' => 'tab',
             'placement' => 'left',
         ),
+        array(
+            'key' => 'telemetry_acquisition_brand_ids',
+            'label' => 'Choose brand IDs',
+            'name' => 'brand_ids',
+            'type' => 'checkbox',
+            'instructions' => 'Choose which brands are available for this acquisition',
+            'wrapper' => array(
+                'width' => '49%',
+            ),
+            'choices' => array(
+
+            ),
+            'default_value' => array()
+        ),
     ),
 );
 // echo "<pre>";

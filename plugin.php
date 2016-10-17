@@ -29,6 +29,7 @@ class AgreableTelemetryPlugin
         add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
         add_action('admin_enqueue_scripts', array($this, 'cssOverrides'), 10, 3);
         add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_acquisition_brand_ids', array($this, 'loadBrands'), 10, 3);
     }
 
 
@@ -86,6 +87,11 @@ class AgreableTelemetryPlugin
             $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
             foreach ($responseObject['data'] as $key => $brand) {
                 $field['choices'][$brand['id']] = $brand['name'];
+            }
+            if ($field['type'] == 'checkbox') {
+                foreach ($responseObject['data'] as $key => $brand) {
+                    array_push($field['default_value'], $brand['id']);
+                }
             }
         }
         return $field;

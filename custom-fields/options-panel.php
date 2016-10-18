@@ -48,6 +48,20 @@ acf_add_local_field_group(array(
 
             )
         ),
+        array(
+            'key' => 'telemetry_acquisition_brand_ids',
+            'label' => 'Customise Brand Available',
+            'name' => 'brand_ids',
+            'type' => 'checkbox',
+            'instructions' => 'Choose which brands are available for this site',
+            'wrapper' => array(
+                'width' => '49%',
+            ),
+            'choices' => array(
+
+            ),
+            'default_value' => array()
+        ),
     ),
     'location' => array(
         array(

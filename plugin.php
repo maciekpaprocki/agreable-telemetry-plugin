@@ -19,6 +19,7 @@ use TimberPost;
 use AgreableWidgetService;
 use AgreableTelemetryPlugin\Controllers\UpdateAcquisition;
 use AgreableTelemetryPlugin\Controllers\RegisterAcquisition;
+use AgreableTelemetryPlugin\Services\Endpoint;
 use get_field;
 use GuzzleHttp\Client;
 
@@ -30,12 +31,14 @@ class AgreableTelemetryPlugin
         add_action('admin_enqueue_scripts', array($this, 'cssOverrides'), 10, 3);
         add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 10, 3);
         add_filter('acf/load_field/key=telemetry_acquisition_brand_ids', array($this, 'loadBrands'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_acquisition_widget_brand_ids', array($this, 'loadBrands'), 10, 3);
+        add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
     }
 
 
     public function cssOverrides()
     {
-        wp_add_inline_style('custom-style', ".acf-hide, th.acf-th.acf-th-text[data-key='telemetry_acqusition_compeition_answers_answer_telemetry_id'] { display: none !important; }");
+        wp_add_inline_style('custom-style', ".acf-hide, th.acf-th.acf-th-text[data-key='telemetry_acqusition_competition_answers_answer_telemetry_id'] { display: none !important; }");
     }
 
     public function registerOrUpdateAcquisition($post_id, $post, $update)
@@ -95,6 +98,24 @@ class AgreableTelemetryPlugin
             }
         }
         return $field;
+    }
+
+    public function addConfigToContext($context)
+    {
+        $fieldData = get_field_object('telemetry_acquisition_brand_ids', 'telemetry-acquisition');
+        $brands = [];
+        foreach ($fieldData['value'] as $value) {
+            $brand = [
+                'name' => $fieldData['choices'][$value],
+                'id' => $value
+            ];
+            array_push($brands, $brand);
+        }
+        $context['telemetry'] = [
+            'endpoint' => Endpoint::get(),
+            'brands' => $brands
+        ];
+        return $context;
     }
 }
 

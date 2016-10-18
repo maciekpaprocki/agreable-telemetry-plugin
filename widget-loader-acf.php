@@ -110,8 +110,8 @@ $widget_config = array(
             'placement' => 'left',
         ),
         array(
-            'key' => 'telemetry_acquisition_brand_ids',
-            'label' => 'Choose brand IDs',
+            'key' => 'telemetry_acquisition_widget_brand_ids',
+            'label' => 'Customise Brand Available',
             'name' => 'brand_ids',
             'type' => 'checkbox',
             'instructions' => 'Choose which brands are available for this acquisition',

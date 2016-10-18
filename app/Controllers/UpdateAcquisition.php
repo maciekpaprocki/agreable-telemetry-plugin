@@ -14,7 +14,7 @@ class UpdateAcquisition
         $this->post = $post;
         $this->index = $index;
         $this->telemetryData = $telemetryData;
-        $baseUri = "http://local.telemetry.report/";
+        $baseUri = Endpoint::get;
         $this->payload = PayloadBuilder::build($telemetryData, $post);
         $this->client = new Client([
             'base_uri' => $baseUri,

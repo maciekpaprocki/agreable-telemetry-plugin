@@ -1,14 +1,25 @@
 {
-    "name": "shortlist-digital/telemetry-plugin",
-    "description": "Telemetry plugin for WordPress",
-    "type": "wordpress-plugin",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jon Sherrard",
-            "email": "jon@andthats.it"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {}
+  "name": "shortlist-digital/telemetry-plugin",
+  "description": "Telemetry plugin for WordPress",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jon Sherrard",
+      "email": "jon@andthats.it"
+    }
+  ],
+  "require": {
+    "getherbert/framework": "~0.9",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "AgreableTelemetryPlugin\\": "app/"
+    }
+  }
 }

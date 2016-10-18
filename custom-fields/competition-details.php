@@ -6,7 +6,19 @@ return array(
         'name' => 'competition_question',
         'type' => 'strict_wysiwyg',
         'simplify' => true,
+        'no_return' => true,
         'placeholder' => 'What is the new Burger King burger called?',
+    ),
+    array(
+        'key' => 'telemetry_acqusition_competition_question_telemetry_id',
+        'label' => 'Telemetry ID',
+        'name' => 'competition_telemetry_id',
+        'type' => 'text',
+        'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
+        'wrapper' => array(
+            'width' => '0%',
+            'class' => 'acf-hide',
+        ),
     ),
     array(
         'key' => 'telemetry_acquisition_competition_answers',
@@ -32,6 +44,17 @@ return array(
                 'type' => 'true_false',
                 'instructions' => 'Tick one of these boxes to represent the correct answer',
             ),
+            array(
+                'key' => 'telemetry_acqusition_competition_answers_answer_telemetry_id',
+                'label' => 'Telemetry ID',
+                'name' => 'telemetry_id',
+                'type' => 'text',
+                'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
+                'wrapper' => array(
+                    'width' => '0%',
+                    'class' => 'acf-hide',
+                ),
+            )
         ),
     ),
 );

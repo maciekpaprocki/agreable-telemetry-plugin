@@ -53,6 +53,8 @@ $widget_config = array(
         $basic_details_config[1],
         $basic_details_config[2],
         $basic_details_config[3],
+        $basic_details_config[4],
+        $basic_details_config[5],
         array(
             'key' => 'telemetry_acquisition_competition_details_tab',
             'label' => 'Competition Details',
@@ -62,6 +64,7 @@ $widget_config = array(
         ),
         $competition_details_config[0],
         $competition_details_config[1],
+        $competition_details_config[2],
         array(
             'key' => 'telemetry_acquisition_optin_details_tab',
             'label' => 'Optin Details',
@@ -89,6 +92,7 @@ $widget_config = array(
             'name' => 'terms_and_conditions_label',
             'type' => 'strict_wysiwyg',
             'simplify' => true,
+            'no_return' => true,
             'default_value' => 'I accept the terms and conditions'
         ),
         array(
@@ -104,6 +108,20 @@ $widget_config = array(
             'name'=> 'terms_and_conditions',
             'type' => 'tab',
             'placement' => 'left',
+        ),
+        array(
+            'key' => 'telemetry_acquisition_widget_brand_ids',
+            'label' => 'Customise Brand Available',
+            'name' => 'brand_ids',
+            'type' => 'checkbox',
+            'instructions' => 'Choose which brands are available for this acquisition',
+            'wrapper' => array(
+                'width' => '49%',
+            ),
+            'choices' => array(
+
+            ),
+            'default_value' => array()
         ),
     ),
 );

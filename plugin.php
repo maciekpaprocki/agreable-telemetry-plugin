@@ -73,7 +73,7 @@ class AgreableTelemetryPlugin
 
     public function loadBrands($field)
     {
-        $baseUri = "http://local.telemetry.report/";
+        $baseUri = Endpoint::get();
         $token = get_field('telemetry_api_key', 'telemetry-configuration');
         if ($token) {
             $client = new Client([

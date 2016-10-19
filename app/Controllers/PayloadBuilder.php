@@ -39,7 +39,7 @@ class PayloadBuilder
         ];
     }
 
-    public function buildCompetition($telemetryData)
+    public static function buildCompetition($telemetryData)
     {
         return [
             'id' => $telemetryData['competition_telemetry_id'],
@@ -48,7 +48,7 @@ class PayloadBuilder
         ];
     }
 
-    public function buildAnswers($answers)
+    public static function buildAnswers($answers)
     {
         $formattedAnswers = [];
         foreach ($answers as $answer) {
@@ -62,7 +62,7 @@ class PayloadBuilder
         return $formattedAnswers;
     }
 
-    public function buildOptins($optins)
+    public static function buildOptins($optins)
     {
         $formattedOptins = [];
         foreach ($optins as $optin) {

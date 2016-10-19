@@ -12,8 +12,20 @@ class WordPressMetaUpdater
 
     public function save()
     {
+        $this->updateField('telemetry_id');
+        $this->updateField('promotion_telemetry_id');
+        $this->updateField('competition_telemetry_id');
         $this->saveCompetitionAnswers($this->data['competition_answers']);
         $this->saveOptins($this->data['optins']);
+    }
+
+    public function updateField($name)
+    {
+        return update_sub_field(
+            array('widgets', $this->index+1, $name),
+            $this->data[$name],
+            $this->post->id
+        );
     }
 
     public function saveOptins($optins)

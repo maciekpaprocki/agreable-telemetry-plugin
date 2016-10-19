@@ -47,6 +47,9 @@ class AgreableTelemetryPlugin
             return;
         }
         $post = new TimberPost($post_id);
+        if ($post->status !== 'publish') {
+            return;
+        }
         if (($widgetIndex = $this->containsWidget($post)) !== false) {
             $widgets = $post->get_field('widgets');
             $telemetryData = $widgets[$widgetIndex];

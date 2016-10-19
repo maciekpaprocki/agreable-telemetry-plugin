@@ -32,6 +32,7 @@ class AgreableTelemetryPlugin
         add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 10, 3);
         add_filter('acf/load_field/key=telemetry_acquisition_brand_ids', array($this, 'loadBrands'), 10, 3);
         add_filter('acf/load_field/key=telemetry_acquisition_widget_brand_ids', array($this, 'loadBrands'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_options_telemetry_team_id', array($this, 'loadTeam'), 10, 3);
         add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
     }
 
@@ -98,6 +99,30 @@ class AgreableTelemetryPlugin
                 foreach ($responseObject['data'] as $key => $brand) {
                     array_push($field['default_value'], $brand['id']);
                 }
+            }
+        }
+        return $field;
+    }
+
+    public function loadTeam($field)
+    {
+        $baseUri = Endpoint::get();
+        $token = get_field('telemetry_api_key', 'telemetry-configuration');
+        if ($token) {
+            $client = new Client([
+                'base_uri' => $baseUri,
+                'timeout'  => 10.0
+            ]);
+            $response = $client->get(
+                'api/v1/team',
+                [
+                    'query' => ['api_token' => $token]
+                ]
+            );
+            $body = (string) $response->getBody();
+            $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
+            foreach ($responseObject['data'] as $key => $team) {
+                $field['choices'][$team['id']] = $team['name'];
             }
         }
         return $field;

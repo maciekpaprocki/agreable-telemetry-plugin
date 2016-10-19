@@ -49,6 +49,19 @@ acf_add_local_field_group(array(
             )
         ),
         array(
+            'key' => 'telemetry_options_telemetry_team_id',
+            'label' => 'Team ID',
+            'name' => 'telemetry_team_id',
+            'type' => 'select',
+            'instructions' => 'The default Telemetry Team ID for this site.',
+            'wrapper' => array(
+                'width' => '49%',
+            ),
+            'choices' => array(
+
+            )
+        ),
+        array(
             'key' => 'telemetry_acquisition_brand_ids',
             'label' => 'Customise Brand Available',
             'name' => 'brand_ids',

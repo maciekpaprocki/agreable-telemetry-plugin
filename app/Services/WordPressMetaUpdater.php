@@ -15,8 +15,12 @@ class WordPressMetaUpdater
         $this->updateField('telemetry_id');
         $this->updateField('promotion_telemetry_id');
         $this->updateField('competition_telemetry_id');
-        $this->saveCompetitionAnswers($this->data['competition_answers']);
-        $this->saveOptins($this->data['optins']);
+        if (!empty($this->data['competition_answers'])) {
+            $this->saveCompetitionAnswers($this->data['competition_answers']);
+        }
+        if (!empty($this->data['optins'])) {
+            $this->saveOptins($this->data['optins']);
+        }
     }
 
     public function updateField($name)

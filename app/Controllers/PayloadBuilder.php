@@ -29,7 +29,7 @@ class PayloadBuilder
             'type' => (!empty($telemetryData['data_to_capture'])
                 && in_array('competition', $telemetryData['data_to_capture']))
                 ? 'competition' : 'promotion',
-            'team_id' => 1,
+            'team_id' => get_field('telemetry_acquisition_telemetry_team_id', 'telemetry-configuration'),
             'brand_id' => [
                 9
             ],

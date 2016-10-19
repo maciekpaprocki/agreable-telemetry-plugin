@@ -28,7 +28,7 @@ class TelemetryResponseHandler
         if ($responseData['promotion'] && $responseData['promotion']['id']) {
             $telemetryData['promotion_telemetry_id'] = $responseData['promotion']['id'];
         }
-        if ($responseData['promotion'] && $responseData['promotion']['competition']) {
+        if ($responseData['promotion'] && $responseData['promotion']['competition']['id']) {
             $telemetryData['competition_telemetry_id'] = $responseData['promotion']['competition']['id'];
             foreach ($telemetryData['competition_answers'] as $index => &$answer) {
                 $answer['telemetry_id'] = $responseData['promotion']['competition']['answers'][$index]['id'];

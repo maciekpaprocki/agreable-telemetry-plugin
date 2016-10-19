@@ -11,7 +11,7 @@ class TelemetryResponseHandler
         } else {
             echo "<h1>Unsuccessful response</h1>";
             echo "<pre>";
-            print_r($$his->response);
+            print_r($this->response);
             die;
         }
     }

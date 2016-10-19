@@ -3,7 +3,7 @@
 use AgreableTelemetryPlugin\Controllers\PayloadBuilder;
 use AgreableTelemetryPlugin\Services\TelemetryResponseHandler;
 use AgreableTelemetryPlugin\Services\WordPressMetaUpdater;
-use AgreableTlemetryPlugin\Services\Endpoint;
+use AgreableTelemetryPlugin\Services\Endpoint;
 use TimberPost;
 use get_field;
 use GuzzleHttp\Client;

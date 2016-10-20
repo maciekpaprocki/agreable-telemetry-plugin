@@ -30,9 +30,7 @@ class PayloadBuilder
                 && in_array('competition', $telemetryData['data_to_capture']))
                 ? 'competition' : 'promotion',
             'team_id' => get_field('telemetry_acquisition_telemetry_team_id', 'telemetry-configuration'),
-            'brand_id' => [
-                9
-            ],
+            'brand_id' => $telemetryData['brand_ids'],
             'url' => get_permalink($post->ID),
             'end_time' => $telemetryData['end_time'],
             'start_time' => $telemetryData['start_time']

@@ -154,8 +154,9 @@ class AgreableTelemetryPlugin
     public function addConfigToContext($context)
     {
         $fieldData = get_field_object('telemetry_acquisition_brand_ids', 'telemetry-acquisition');
+        $defaultData = get_field('telemetry_acquisition_brand_ids', 'telemetry-configuration');
         $brands = [];
-        foreach ($fieldData['value'] as $value) {
+        foreach ($defaultData as $value) {
             $brand = [
                 'name' => $fieldData['choices'][$value],
                 'id' => $value

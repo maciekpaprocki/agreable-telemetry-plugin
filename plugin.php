@@ -30,6 +30,7 @@ use AgreableTelemetryPlugin\Controllers\RegisterAcquisition;
 use AgreableTelemetryPlugin\Services\Endpoint;
 use get_field;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ServerException;
 
 class AgreableTelemetryPlugin
 {
@@ -37,10 +38,10 @@ class AgreableTelemetryPlugin
     {
         add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
         add_action('admin_enqueue_scripts', array($this, 'cssOverrides'), 10, 3);
-        add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 11, 3);
         add_filter('acf/load_field/key=telemetry_acquisition_brand_ids', array($this, 'loadBrands'), 10, 3);
-        add_filter('acf/load_field/key=telemetry_acquisition_widget_brand_ids', array($this, 'loadBrands'), 10, 3);
         add_filter('acf/load_field/key=telemetry_options_telemetry_team_id', array($this, 'loadTeam'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_acquisition_widget_brand_ids', array($this, 'setDefaultBrands'), 10, 3);
         add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
     }
 
@@ -92,21 +93,25 @@ class AgreableTelemetryPlugin
                 'base_uri' => $baseUri,
                 'timeout'  => 10.0
             ]);
-            $response = $client->get(
-                'api/v1/team/brand',
-                [
-                    'query' => ['api_token' => $token]
-                ]
-            );
-            $body = (string) $response->getBody();
-            $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
-            foreach ($responseObject['data'] as $key => $brand) {
-                $field['choices'][$brand['id']] = $brand['name'];
-            }
-            if ($field['type'] == 'checkbox') {
+            try {
+                $response = $client->get(
+                    'api/v1/team/brand',
+                    [
+                        'query' => ['api_token' => $token]
+                    ]
+                );
+                $body = (string) $response->getBody();
+                $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
                 foreach ($responseObject['data'] as $key => $brand) {
-                    array_push($field['default_value'], $brand['id']);
+                    $field['choices'][$brand['id']] = $brand['name'];
                 }
+                if ($field['type'] == 'checkbox') {
+                    foreach ($responseObject['data'] as $key => $brand) {
+                        array_push($field['default_value'], $brand['id']);
+                    }
+                }
+            } catch (ServerException $exception) {
+                update_field('telemetry_api_key', '', 'telemetry-configuration');
             }
         }
         return $field;
@@ -121,16 +126,20 @@ class AgreableTelemetryPlugin
                 'base_uri' => $baseUri,
                 'timeout'  => 10.0
             ]);
-            $response = $client->get(
-                'api/v1/team',
-                [
-                    'query' => ['api_token' => $token]
-                ]
-            );
-            $body = (string) $response->getBody();
-            $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
-            foreach ($responseObject['data'] as $key => $team) {
-                $field['choices'][$team['id']] = $team['name'];
+            try {
+                $response = $client->get(
+                    'api/v1/team',
+                    [
+                        'query' => ['api_token' => $token]
+                    ]
+                );
+                $body = (string) $response->getBody();
+                $responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
+                foreach ($responseObject['data'] as $key => $team) {
+                    $field['choices'][$team['id']] = $team['name'];
+                }
+            } catch (ServerException $exception) {
+                update_field('telemetry_api_key', '', 'telemetry-configuration');
             }
         }
         return $field;
@@ -152,6 +161,17 @@ class AgreableTelemetryPlugin
             'brands' => $brands
         ];
         return $context;
+    }
+
+    public function setDefaultbrands($field)
+    {
+        $fieldData = get_field_object('telemetry_acquisition_brand_ids', 'telemetry-acquisition');
+        $defaultData = get_field('telemetry_acquisition_brand_ids', 'telemetry-configuration');
+        foreach ($defaultData as $index => $value) {
+            $field['choices'][$value] = $fieldData['choices'][$value];
+            array_push($field['default_value'], $value);
+        }
+        return $field;
     }
 }
 

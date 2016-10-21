@@ -60,7 +60,12 @@ class AgreableTelemetryPlugin
         if ($post->status !== 'publish') {
             return;
         }
-        if (($widgetIndex = $this->containsWidget($post)) !== false) {
+        if ($post->post_type !== 'post') {
+            return;
+        }
+
+        $widgetIndex = $this->containsWidget($post);
+        if (!($widgetIndex === false)) {
             $widgets = $post->get_field('widgets');
             $telemetryData = $widgets[$widgetIndex];
             if (!empty($telemetryData['telemetry_id'])) {
@@ -73,7 +78,8 @@ class AgreableTelemetryPlugin
 
     public function containsWidget($post)
     {
-        if (!$widgets = $post->get_field('widgets')) {
+        $widgets = $post->get_field('widgets');
+        if (empty($widgets)) {
             return;
         }
         foreach ($widgets as $index => $widget) {

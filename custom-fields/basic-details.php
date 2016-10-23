@@ -82,5 +82,12 @@ return array(
      'wrapper' => array(
          'width' => '100%',
      ),
-   ),
+ ),
+ array(
+     'key' => 'telemetry_acquisition_image',
+     'label' => 'Image',
+     'name' => 'image',
+     'type' => 'image',
+     'preview_size' => 'full'
+ )
 );

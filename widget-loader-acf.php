@@ -55,6 +55,7 @@ $widget_config = array(
         $basic_details_config[3],
         $basic_details_config[4],
         $basic_details_config[5],
+        $basic_details_config[6],
         array(
             'key' => 'telemetry_acquisition_competition_details_tab',
             'label' => 'Competition Details',
@@ -143,6 +144,15 @@ $widget_config = array(
 
             ),
             'default_value' => array()
+        ),
+        array(
+            'key' => 'telemetry_acquisition_cta',
+            'label' => 'CTA Title',
+            'name' => 'cta',
+            'type' => 'strict_wysiwyg',
+            'simplify' => true,
+            'no_return' => true,
+            'default_value' => 'Enter'
         ),
     ),
 );

@@ -42,7 +42,23 @@ class AgreableTelemetryPlugin
         add_filter('acf/load_field/key=telemetry_acquisition_brand_ids', array($this, 'loadBrands'), 10, 3);
         add_filter('acf/load_field/key=telemetry_options_telemetry_team_id', array($this, 'loadTeam'), 10, 3);
         add_filter('acf/load_field/key=telemetry_acquisition_widget_brand_ids', array($this, 'setDefaultBrands'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_acquisition_thank_you_screen_title', array($this, 'setDefaultThankYouTitle'), 10, 3);
+        add_filter('acf/load_field/key=telemetry_acquisition_thank_you_screen_body', array($this, 'setDefaultThankYouBodyText'), 10, 3);
         add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
+    }
+
+    public function setDefaultThankYouTitle($field)
+    {
+        $title = get_field('telemetry_acquisition_thank_you_screen_title_default', 'telemetry-configuration');
+        $field['default_value'] = $title;
+        return $field;
+    }
+
+    public function setDefaultThankYouBodyText($field)
+    {
+        $bodyText = get_field('telemetry_acquisition_thank_you_screen_body_default', 'telemetry-configuration');
+        $field['default_value'] = $bodyText;
+        return $field;
     }
 
 

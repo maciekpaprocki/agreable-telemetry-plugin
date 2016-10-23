@@ -75,7 +75,23 @@ acf_add_local_field_group(array(
             ),
             'default_value' => array()
         ),
+        array(
+            'key' => 'telemetry_acquisition_thank_you_screen_title_default',
+            'label' => 'Thank You Screen Default Title',
+            'name' => 'thank_you_screen_title_deafault',
+            'type' => 'strict_wysiwyg',
+            'simplify' => true,
+            'no_return' => true
+        ),
+        array(
+            'key' => 'telemetry_acquisition_thank_you_screen_body_default',
+            'label' => 'Thank You Screen Default Body Text',
+            'name' => 'thank_you_screen_body_default',
+            'type' => 'strict_wysiwyg',
+            'simplify' => true,
+        ),
     ),
+
     'location' => array(
         array(
             array(

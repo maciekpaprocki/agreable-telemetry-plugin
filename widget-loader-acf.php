@@ -103,6 +103,27 @@ $widget_config = array(
             'simplify' => true,
         ),
         array(
+            'key' => 'telemetry_acquisition_thank_you_screen_tab',
+            'label' => 'Thank You Screen',
+            'type' => 'tab',
+            'placement' => 'left',
+        ),
+        array(
+            'key' => 'telemetry_acquisition_thank_you_screen_title',
+            'label' => 'Title',
+            'name' => 'thank_you_screen_title',
+            'type' => 'strict_wysiwyg',
+            'simplify' => true,
+            'no_return' => true
+        ),
+        array(
+            'key' => 'telemetry_acquisition_thank_you_screen_body',
+            'label' => 'Body text',
+            'name' => 'thank_you_screen_body',
+            'type' => 'strict_wysiwyg',
+            'simplify' => true,
+        ),
+        array(
             'key' => 'telemetry_acquisition_advanced_details_tab',
             'label' => 'Advanced Details',
             'name'=> 'terms_and_conditions',

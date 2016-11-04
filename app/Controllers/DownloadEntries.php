@@ -29,28 +29,57 @@ class DownloadEntries
 
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 
+        $widget = $this->widget;
+        $idIndex = "{$type}_telemetry_id";
+        $id = $widget[$idIndex];
+
+
         $wp_admin_bar->add_menu(array(
             'id'    => 'promo-downloads',
-            'title' => 'Export Promo Entries',
+            'title' => "Export ".ucwords($type)." Entries",
             'href'  => ''
         ));
 
         $wp_admin_bar->add_menu(array(
             'id'    => 'download-csv',
-            'title' => "Download ".ucwords($type)." Entries - CSV",
+            'title' => "All",
             'target' => '_BLANK',
-            'href'  => $this->getUrl($type),
+            'href'  => $this->getUrl($type, $id),
             'parent'=>'promo-downloads'
         ));
+
+        if ($this->isCompetition()) {
+            $wp_admin_bar->add_menu(array(
+                'id'    => 'download-csv-correct',
+                'title' => "Correct Answers Only",
+                'target' => '_BLANK',
+                'href'  => $this->getUrl($type, $id, true),
+                'parent'=>'promo-downloads'
+            ));
+        }
+
+        if (count($this->widget['optins'])) {
+            foreach ($this->widget['optins'] as $optin) {
+                $wp_admin_bar->add_menu(array(
+                    'id'    => "download-csv-".$optin['telemetry_id'],
+                    'title' => ucwords($optin['optin_name'])." Opt-ins",
+                    'target' => '_BLANK',
+                    'href'  => $this->getUrl('optin', $optin['telemetry_id']),
+                    'parent'=>'promo-downloads'
+                ));
+            }
+        }
     }
 
-    public function getUrl($type)
+    public function getUrl($type, $id, $correct = false)
     {
-        $widget = $this->widget;
         $token = $this->token;
-        $idIndex = "{$type}_telemetry_id";
-        $id = $widget[$idIndex];
-        return $this->baseUrl()."/api/v1/".$type."s/".$id."/entries?api_token=".$token;
+        $correctSegment = $correct ? '/correct' : '';
+        $url = $this->baseUrl()."/api/v1/";
+        $url = $url.$type."s/".$id."/entries";
+        $url = $url.$correctSegment;
+        $url = $url."?api_token=".$token;
+        return $url;
     }
 
     public function baseUrl()

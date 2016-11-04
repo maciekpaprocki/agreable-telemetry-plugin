@@ -22,12 +22,16 @@ if (file_exists(__DIR__ . '/../../../../vendor/getherbert/framework/bootstrap/au
     require_once __DIR__ . '/vendor/getherbert/framework/bootstrap/autoload.php';
 }
 
-use add_action;
-use TimberPost;
+
 use AgreableWidgetService;
 use AgreableTelemetryPlugin\Controllers\UpdateAcquisition;
 use AgreableTelemetryPlugin\Controllers\RegisterAcquisition;
 use AgreableTelemetryPlugin\Services\Endpoint;
+use AgreableTelemetryPlugin\Controllers\DownloadEntries;
+
+
+use add_action;
+use TimberPost;
 use get_field;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
@@ -36,6 +40,7 @@ class AgreableTelemetryPlugin
 {
     public function __construct()
     {
+        $downloadEntries = new DownloadEntries;
         add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
         add_action('admin_enqueue_scripts', array($this, 'cssOverrides'), 10, 3);
         add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 11, 3);
@@ -45,6 +50,7 @@ class AgreableTelemetryPlugin
         add_filter('acf/load_field/key=telemetry_acquisition_thank_you_screen_title', array($this, 'setDefaultThankYouTitle'), 10, 3);
         add_filter('acf/load_field/key=telemetry_acquisition_thank_you_screen_body', array($this, 'setDefaultThankYouBodyText'), 10, 3);
         add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
+        add_action('wp_before_admin_bar_render', array($downloadEntries, 'enqueue'), 10, 1);
     }
 
     public function setDefaultThankYouTitle($field)

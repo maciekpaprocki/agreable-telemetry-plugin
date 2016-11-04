@@ -4,7 +4,7 @@ use TimberPost;
 
 class UsesTelemetry
 {
-    public static function check(TimberPost $post)
+    public static function getIndex(TimberPost $post)
     {
         $widgets = $post->get_field('widgets');
         if (empty($widgets)) {
@@ -16,5 +16,10 @@ class UsesTelemetry
             }
         }
         return false;
+    }
+
+    public static function check(TimberPost $post)
+    {
+        return self::getIndex($post) ? true : false;
     }
 }

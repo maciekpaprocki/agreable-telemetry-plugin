@@ -8,10 +8,12 @@ class DownloadEntries
 {
     public function enqueue($params)
     {
+        $this->token = get_field('telemetry_api_key', 'telemetry-configuration');
         $post = new TimberPost;
-        $widgetIndexOrFalse = UsesTelemetry::check($post);
-        if (!is_admin() && $widgetIndexOrFalse) {
-            $this->widget = $post->get_field('widgets')[$widgetIndexOrFalse];
+        $check = UsesTelemetry::check($post);
+        if (!is_admin() && $check && $this->token) {
+            $index = UsesTelemetry::getIndex($post);
+            $this->widget = $post->get_field('widgets')[$index];
             $this->buildMenu();
         }
     }
@@ -25,7 +27,6 @@ class DownloadEntries
     {
         global $wp_admin_bar;
 
-        $this->token = get_field('telemetry_api_key', 'telemetry-configuration');
 
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 

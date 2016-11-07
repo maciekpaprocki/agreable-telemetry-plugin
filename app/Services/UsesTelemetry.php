@@ -15,11 +15,11 @@ class UsesTelemetry
                 return $index;
             }
         }
-        return false;
+        return null;
     }
 
     public static function check(TimberPost $post)
     {
-        return self::getIndex($post) ? true : false;
+        return (self::getIndex($post) !== null) ? true : false;
     }
 }

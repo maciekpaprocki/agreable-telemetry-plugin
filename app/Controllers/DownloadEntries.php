@@ -20,6 +20,9 @@ class DownloadEntries
 
     public function isCompetition()
     {
+        if (empty($this->widget['data_to_capture'])) {
+            return false;
+        }
         return in_array('competition', $this->widget['data_to_capture'], true);
     }
 
@@ -59,7 +62,10 @@ class DownloadEntries
             ));
         }
 
-        if (count($this->widget['optins'])) {
+        $hasOptins = (!empty($this->widget['data_to_capture']) &&
+            in_array('optins', $this->widget['data_to_capture'], true));
+            
+        if ($hasOptins) {
             foreach ($this->widget['optins'] as $optin) {
                 $wp_admin_bar->add_menu(array(
                     'id'    => "download-csv-".$optin['telemetry_id'],

@@ -34,6 +34,9 @@ class DownloadEntries
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 
         $widget = $this->widget;
+        // echo "<pre>";
+        // print_r($widget);
+        // die;
         $idIndex = "{$type}_telemetry_id";
         $id = $widget[$idIndex];
 
@@ -64,7 +67,7 @@ class DownloadEntries
 
         $hasOptins = (!empty($this->widget['data_to_capture']) &&
             in_array('optins', $this->widget['data_to_capture'], true));
-            
+
         if ($hasOptins) {
             foreach ($this->widget['optins'] as $optin) {
                 $wp_admin_bar->add_menu(array(

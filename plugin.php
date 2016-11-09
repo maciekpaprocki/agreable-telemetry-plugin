@@ -28,6 +28,7 @@ use AgreableTelemetryPlugin\Controllers\UpdateAcquisition;
 use AgreableTelemetryPlugin\Controllers\RegisterAcquisition;
 use AgreableTelemetryPlugin\Services\Endpoint;
 use AgreableTelemetryPlugin\Controllers\DownloadEntries;
+use AgreableTelemetryPlugin\Controllers\HandleDuplicate;
 
 
 use add_action;
@@ -41,6 +42,7 @@ class AgreableTelemetryPlugin
     public function __construct()
     {
         $downloadEntries = new DownloadEntries;
+        $handleDuplicate = new HandleDuplicate;
         add_action('save_post', array($this, 'registerOrUpdateAcquisition'), 10, 3);
         add_action('admin_enqueue_scripts', array($this, 'cssOverrides'), 10, 3);
         add_filter('acf/load_field/key=telemetry_options_telemetry_default_brand_id', array($this, 'loadBrands'), 11, 3);
@@ -51,6 +53,7 @@ class AgreableTelemetryPlugin
         add_filter('acf/load_field/key=telemetry_acquisition_thank_you_screen_body', array($this, 'setDefaultThankYouBodyText'), 10, 3);
         add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
         add_action('wp_before_admin_bar_render', array($downloadEntries, 'enqueue'), 10, 1);
+        add_action('dp_duplicate_post', array($handleDuplicate, 'handle'), 10, 2);
     }
 
     public function setDefaultThankYouTitle($field)

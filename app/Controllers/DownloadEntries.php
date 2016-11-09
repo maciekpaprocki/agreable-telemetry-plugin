@@ -64,7 +64,7 @@ class DownloadEntries
 
         $hasOptins = (!empty($this->widget['data_to_capture']) &&
             in_array('optins', $this->widget['data_to_capture'], true));
-            
+
         if ($hasOptins) {
             foreach ($this->widget['optins'] as $optin) {
                 $wp_admin_bar->add_menu(array(

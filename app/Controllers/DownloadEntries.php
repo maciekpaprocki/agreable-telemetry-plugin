@@ -34,9 +34,6 @@ class DownloadEntries
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 
         $widget = $this->widget;
-        // echo "<pre>";
-        // print_r($widget);
-        // die;
         $idIndex = "{$type}_telemetry_id";
         $id = $widget[$idIndex];
 

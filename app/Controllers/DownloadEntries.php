@@ -62,8 +62,8 @@ class DownloadEntries
             ));
         }
 
-        $hasOptins = (!empty($this->widget['data_to_capture']) &&
-            in_array('optins', $this->widget['data_to_capture'], true));
+        $hasOptins = (!empty($this->widget['additional_features']) &&
+            in_array('optins', $this->widget['additional_features']));
 
         if ($hasOptins) {
             foreach ($this->widget['optins'] as $optin) {

@@ -2,6 +2,17 @@
 
 return array(
 	array(
+        'key' => 'telemetry_acquisition_voucher_telemetry_id',
+        'label' => 'Telemetry ID',
+        'name' => 'voucher_telemetry_id',
+        'type' => 'text',
+        'instructions' => 'DO NOT TOUCH, if you can see this, should be hidden',
+        'wrapper' => array(
+            'width' => '0%',
+            'class' => 'acf-hide',
+        ),
+    ),
+	array(
             'key' => 'telemetry_acquisition_voucher_template_name',
             'label' => 'Template',
 			'instructions' => 'The name of the template to use with this email. Lowercase and no spaces.',
@@ -99,13 +110,6 @@ return array(
 												),
 										),
 									),
-	),
-	array(
-			'key' => 'telemetry_acquisition_voucher_with_title',
-			'label' => 'Include the title from the containing post?',
-			'name' => 'voucher_with_title',
-			'type' => 'true_false',
-			'instructions' => 'This allows you to add the title from the post that uses this promotion in the email voucher.',
 	),
 	array(
             'key' => 'telemetry_acquisition_voucher_information',

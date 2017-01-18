@@ -51,6 +51,7 @@ class PayloadBuilder
     public static function buildVoucher($telemetryData)
     {
         return [
+			'id' => $telemetryData['voucher_telemetry_id'],
 			'template' => $telemetryData['voucher_template_name'],
 			'email_subject' => $telemetryData['voucher_email_subject'],
 			'brand_header_url' => $telemetryData['voucher_brand_header'],

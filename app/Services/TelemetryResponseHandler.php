@@ -28,6 +28,7 @@ class TelemetryResponseHandler
         if ($responseData['promotion'] && $responseData['promotion']['id']) {
             $telemetryData['promotion_telemetry_id'] = $responseData['promotion']['id'];
         }
+
         if ($responseData['promotion'] && $responseData['promotion']['competition']['id']) {
             $telemetryData['competition_telemetry_id'] = $responseData['promotion']['competition']['id'];
             foreach ($telemetryData['competition_answers'] as $index => &$answer) {
@@ -38,6 +39,9 @@ class TelemetryResponseHandler
             foreach ($telemetryData['optins'] as $index => &$optin) {
                 $optin['telemetry_id'] = $responseData['optins'][$index]['id'];
             }
+        }
+		if ($responseData['voucher'] && $responseData['voucher']['id']) {
+			$telemetryData['voucher_telemetry_id'] = $responseData['voucher']['id'];
         }
         return $telemetryData;
     }

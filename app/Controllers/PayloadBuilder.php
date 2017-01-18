@@ -18,6 +18,9 @@ class PayloadBuilder
             if (in_array('optins', $telemetryData['additional_features'])) {
                 $payload['third_party_optins'] = self::buildOptins($telemetryData['optins']);
             }
+			if (in_array('voucher', $telemetryData['additional_features'])) {
+                $payload['voucher'] = self::buildVoucher($telemetryData);
+            }
         }
         return $payload;
     }
@@ -45,7 +48,20 @@ class PayloadBuilder
             'answers' => self::buildAnswers($telemetryData['competition_answers'])
         ];
     }
-
+    public static function buildVoucher($telemetryData)
+    {
+        return [
+			'template' => $telemetryData['voucher_template_name'],
+			'email_subject' => $telemetryData['voucher_email_subject'],
+			'brand_header_url' => $telemetryData['voucher_brand_header'],
+			'hero_url' => $telemetryData['voucher_hero_image'],
+			'heading' => $telemetryData['voucher_heading'],
+			'description' => $telemetryData['voucher_description'],
+			'voucher_code' => $telemetryData['voucher_manual_code'],
+			'voucher_info' => $telemetryData['voucher_information'],
+			'terms' => $telemetryData['voucher_terms']
+        ];
+    }
     public static function buildAnswers($answers)
     {
         $formattedAnswers = [];

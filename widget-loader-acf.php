@@ -3,6 +3,7 @@
 $basic_details_config = include('custom-fields/basic-details.php');
 $optin_details_config = include('custom-fields/optin-details.php');
 $competition_details_config = include('custom-fields/competition-details.php');
+$voucher_details_config = include('custom-fields/voucher-details.php');
 
 $competition_conditional_logic = array(
     array(
@@ -80,6 +81,17 @@ $widget_config = array(
             'placement' => 'left',
             'conditional_logic' => $voucher_conditional_logic
         ),
+		$voucher_details_config[0],
+		$voucher_details_config[1],
+		$voucher_details_config[2],
+		$voucher_details_config[3],
+		$voucher_details_config[4],
+		$voucher_details_config[5],
+		$voucher_details_config[6],
+		$voucher_details_config[7],
+		$voucher_details_config[8],
+		$voucher_details_config[9],
+		$voucher_details_config[10],
         array(
             'key' => 'telemetry_acquisition_terms_and_conditions_tab',
             'label' => 'Terms & Conditions',

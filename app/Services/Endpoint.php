@@ -9,7 +9,7 @@ class Endpoint
 
         $override = getenv('TELEMETRY_ENDPOINT');
         if ($override) {
-            return "https://".$override;
+            return $protocol.$override;
         }
         $level = (getenv('WP_ENV') !== 'development')
             ? getenv('WP_ENV') : 'local';

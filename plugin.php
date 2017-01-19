@@ -176,30 +176,21 @@ class AgreableTelemetryPlugin
 		}
 		return $field;
 	}
+
 	public function loadTemplateNames($field)
 	{
-		$baseUri = Endpoint::get();
-		$token = get_field('telemetry_api_key', 'telemetry-configuration');
-		if ($token) {
-			$client = new Client([
-				'base_uri' => $baseUri,
-				'timeout'  => 10.0
-			]);
-			try {
-				$response = $client->get(
-					'api/v1/team/brand',
-					[
-						'query' => ['api_token' => $token]
-					]
-				);
-				$body = (string) $response->getBody();
-				$responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
-				foreach ($responseObject['data'] as $key => $template) {
-					$field['choices'][$template['id']] = $template['name'];
-				}
-			} catch (ServerException $exception) {
-				update_field('telemetry_api_key', '', 'telemetry-configuration');
+		$client = new Client(['timeout'  => 10.0]);
+		try {
+			$response = $client->get(
+				'http://sortingofficeapi.com/templates'
+			);
+			$body = (string) $response->getBody();
+			$responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
+			foreach ($responseObject['templates'] as $key => $template) {
+				$field['choices'][$template['id']] = $template;
 			}
+		} catch (ServerException $exception) {
+			throw new Error($exception);
 		}
 		return $field;
 	}

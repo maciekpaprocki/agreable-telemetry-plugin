@@ -187,7 +187,7 @@ class AgreableTelemetryPlugin
 			]);
 			try {
 				$response = $client->get(
-					'api/v1',
+					'api/v1/team/brand',
 					[
 						'query' => ['api_token' => $token]
 					]

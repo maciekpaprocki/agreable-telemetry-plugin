@@ -22,7 +22,7 @@
                 "name": "Oxford Street",
                 "correct": "false"
             }
-        ],
+        ]
     },
     "promotion": {
         "id": null,
@@ -37,5 +37,16 @@
             "id": null,
             "name": "Something else newsletter"
         }
-    ]
+    ],
+    "sorting_office": {
+        "template": "template_name",
+        "email_subject": "Email Subject",
+        "brand_header_url": "https://google.com/",
+        "hero_url": "https://google.co.uk/",
+        "heading": "Heading",
+        "description": "Description",
+        "voucher_code": "5random",
+        "voucher_info": "Some voucher information",
+        "terms": "Voucher terms and conditions."
+    }
 }

@@ -52,8 +52,7 @@ return array(
 		'key' => 'telemetry_acquisition_voucher_description',
 		'label' => 'Description',
 		'name' => 'voucher_description',
-		'type' => 'strict_wysiwyg',
-		'toolbar' => 'basic'
+		'type' => 'strict_wysiwyg'
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_gen_code',
@@ -84,8 +83,7 @@ return array(
 		'label' => 'Other voucher information',
 		'name' => 'voucher_information',
 		'instructions' => 'e.g.<br>Valid until: 25/12/2015<br>Only valid on Tuesday evenings',
-		'type' => 'strict_wysiwyg',
-		'toolbar' => 'basic'
+		'type' => 'strict_wysiwyg'
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_terms',

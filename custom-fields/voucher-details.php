@@ -17,8 +17,11 @@ return array(
 		'label' => 'Template',
 		'instructions' => 'The name of the template to use with this email. Lowercase and no spaces.',
 		'name' => 'voucher_template_name',
-		'type' => 'text',
-		'required' => true
+		'type' => 'select',
+		'required' => true,
+		'choices' => array(
+
+		)
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_email_subject',

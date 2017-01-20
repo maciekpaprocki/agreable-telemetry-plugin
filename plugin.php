@@ -187,7 +187,7 @@ class AgreableTelemetryPlugin
 			$body = (string) $response->getBody();
 			$responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
 			foreach ($responseObject['templates'] as $key => $template) {
-				$field['choices'][$template['id']] = $template;
+				$field['choices'][$template] = $template;
 			}
 		} catch (ServerException $exception) {
 			throw new Error($exception);

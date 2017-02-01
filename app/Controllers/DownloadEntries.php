@@ -48,7 +48,7 @@ class DownloadEntries
             'id'    => 'download-csv',
             'title' => "All",
             'target' => '_BLANK',
-            'href'  => $this->getUrl($type, $id),
+            'href'  => $this->getUrl($id),
             'parent'=>'promo-downloads'
         ));
 
@@ -57,7 +57,7 @@ class DownloadEntries
                 'id'    => 'download-csv-correct',
                 'title' => "Correct Answers Only",
                 'target' => '_BLANK',
-                'href'  => $this->getUrl($type, $id, true),
+                'href'  => $this->getUrl($id, 'correct'),
                 'parent'=>'promo-downloads'
             ));
         }
@@ -71,22 +71,27 @@ class DownloadEntries
                     'id'    => "download-csv-".$optin['telemetry_id'],
                     'title' => ucwords($optin['optin_name'])." Opt-ins",
                     'target' => '_BLANK',
-                    'href'  => $this->getUrl('optin', $optin['telemetry_id']),
+                    'href'  => $this->getUrl($id, 'optins', $optin['telemetry_id']),
                     'parent'=>'promo-downloads'
                 ));
             }
         }
     }
 
-    public function getUrl($type, $id, $correct = false)
+    public function getUrl($id, $type = null, $optinId = null)
     {
+		// /acquisitions/1/promotion/entries/?email=email@example.com&api_token=API_TOKEN
+		// /acquisitions/1/promotion/entries/correct/?email=email@example.com&api_token=API_TOKEN
+		// /acquisitions/1/promotion/entries/optins/1?email=email@example.com&api_token=API_TOKEN
+
+		$user = wp_get_current_user();
         $token = $this->token;
-        $correctSegment = $correct ? '/correct' : '';
-        $url = $this->baseUrl()."/api/v1/";
-        $url = $url.$type."s/".$id."/entries";
-        $url = $url.$correctSegment;
-        $url = $url."?api_token=".$token;
-        return $url;
+
+        $url = $this->baseUrl() . '/api/v1/acquisition/' . $id . '/entries/' . $type;
+		$url .= empty($optinId) ? '' : '/' . $optinId;
+        $url = $url . '?email=' . $user->user_email . '&api_token=' . $token;
+
+		return $url;
     }
 
     public function baseUrl()

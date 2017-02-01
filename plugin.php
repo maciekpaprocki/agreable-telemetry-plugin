@@ -55,6 +55,34 @@ class AgreableTelemetryPlugin
 		add_filter('timber_context', array($this, 'addConfigToContext'), 10, 1);
 		add_action('wp_before_admin_bar_render', array($downloadEntries, 'enqueue'), 10, 1);
 		add_action('dp_duplicate_post', array($handleDuplicate, 'handle'), 10, 2);
+		add_action( 'wp_enqueue_scripts', array($this, 'input_admin_enqueue_scripts'), 10, 3);
+	}
+
+	/*
+	 *  input_admin_enqueue_scripts()
+	 *
+	 *  This action is called in the admin_enqueue_scripts action on the edit  screen where your field is created.
+	 *  Use this action to add CSS + JavaScript to assist your render_field()  action.
+	 *
+	 *  @type	action (admin_enqueue_scripts)
+	 *  @since	3.6
+	 *  @date	23/01/13
+	 *
+	 *  @param	n/a
+	 *  @return	n/a
+	 */
+	public function input_admin_enqueue_scripts() {
+		$dir = WP_PLUGIN_DIR;
+		$dir = explode('/', $dir);
+		$last = array_pop($dir);
+		$next_last = array_pop($dir);
+		$folder = basename(dirname(__FILE__));
+		$base_url = get_bloginfo('url');
+		$dir = "$base_url/$next_last/$last/$folder/";
+
+		// register & include JS
+		wp_register_script( 'agreable-telemetry-plugin-script', "{$dir}resources/assets/js/main.js", array('jquery') );
+		wp_enqueue_script('agreable-telemetry-plugin-script');
 	}
 
 	public function setDefaultThankYouTitle($field)

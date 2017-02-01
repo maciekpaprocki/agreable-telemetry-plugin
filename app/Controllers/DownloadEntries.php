@@ -87,7 +87,7 @@ class DownloadEntries
 		$user = wp_get_current_user();
         $token = $this->token;
 
-        $url = $this->baseUrl() . '/api/v1/acquisition/' . $id . '/entries/' . $type;
+        $url = $this->baseUrl() . 'api/v1/acquisitions/' . $id . '/promotion/entries/' . $type;
 		$url .= empty($optinId) ? '' : '/' . $optinId;
         $url = $url . '?email=' . $user->user_email . '&api_token=' . $token;
 

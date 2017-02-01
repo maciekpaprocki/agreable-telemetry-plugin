@@ -5,8 +5,9 @@
     "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build-js": "npm install && ./node_modules/browserify/bin/cmd.js src/main.js --standalone Telemetry -o resources/assets/js/main.js -t babelify",
-        "watch-js": "npm install && ./node_modules/watchify/bin/cmd.js src/main.js --standalone Telemetry -o resources/assets/js/main.js -t babelify -v"
+        "build-js": "npm install && ./node_modules/.bin/browserify src/main.js --standalone Telemetry -o resources/assets/js/main.js -t babelify",
+        "watch-js": "npm install && ./node_modules/.bin/watchify src/main.js --standalone Telemetry -o resources/assets/js/main.js -t babelify -v",
+        "minify-js": "npm run build-js && ./node_modules/.bin/uglifyjs --compress --mangle -o resources/assets/js/main.js -- resources/assets/js/main.js"
     },
     "repository": {
         "type": "git",
@@ -24,6 +25,7 @@
         "babel-preset-stage-0": "6.22.x",
         "babelify": "7.3.x",
         "browserify": "14.0.x",
+        "uglify-js": "2.7.x",
         "watchify": "3.9.0"
     },
     "dependencies": {}

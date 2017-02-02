@@ -34,7 +34,7 @@ class DownloadEntries
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 
         $widget = $this->widget;
-        $idIndex = "{$type}_telemetry_id";
+        $idIndex = "acquisition_telemetry_id";
         $id = $widget[$idIndex];
 
 
@@ -87,7 +87,7 @@ class DownloadEntries
 		$user = wp_get_current_user();
         $token = $this->token;
 
-        $url = $this->baseUrl() . 'api/v1/acquisitions/' . $id . '/promotion/entries/' . $type;
+        $url = $this->baseUrl() . '/api/v1/acquisitions/' . $id . '/promotion/entries/' . $type;
 		$url .= empty($optinId) ? '' : '/' . $optinId;
         $url = $url . '?email=' . $user->user_email . '&api_token=' . $token;
 

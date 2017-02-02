@@ -34,8 +34,7 @@ class DownloadEntries
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 
         $widget = $this->widget;
-        $idIndex = "telemetry_id";
-        $id = $widget[$idIndex];
+        $id = $widget["telemetry_id"];
 
 
         $wp_admin_bar->add_menu(array(

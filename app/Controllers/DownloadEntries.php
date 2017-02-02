@@ -34,7 +34,7 @@ class DownloadEntries
         $type = $this->isCompetition() ? 'competition' : 'promotion';
 
         $widget = $this->widget;
-        $idIndex = "acquisition_telemetry_id";
+        $idIndex = "telemetry_id";
         $id = $widget[$idIndex];
 
 

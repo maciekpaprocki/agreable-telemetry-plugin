@@ -38,7 +38,6 @@ export class AgreableTelemetryPlugin {
                 }
             },
             error: data =>  {
-                console.log('error', data);
                 // show error modal
                 this.showErrorModal();
             }
@@ -46,11 +45,21 @@ export class AgreableTelemetryPlugin {
     }
 
     showSuccessModal(password) {
-        sweetAlert('Your download request was successful!', 'You\'ll get and email to say it\'s ready.\nPlease make a note of this password as you\'ll need it to open the file:\n\n' + password, 'success');
+        sweetAlert({
+            title: '<span style="color:#000">Your download request was successful!</span>',
+            text: '<p style="color:#000">You\'ll get an email to say it\'s ready. Please make a note of this password as you\'ll need it to open the file:</p><p style="margin-top:20px;color:#000">' + password + '</p>',
+            html: true,
+            type: 'success'
+        });
     }
 
     showErrorModal() {
-        sweetAlert('There was a problem with your download request!', 'Something went a bit wrong, but we\'re not sure what. Drop us an email at helpmeitbroke@telemetry.report and we\'ll take a look into it for you.', 'warning');
+        sweetAlert({
+            title: '<span style="color:#000">There was a problem with your download request!</span>',
+            text: '<span style="color:#000">Something went a bit wrong, but we\'re not sure what. Drop us an email at <a href="mailto:jon.sherrard@shortlist.com">jon.sherrard@shortlist.com</a> and we\'ll take a look into it for you.</span>',
+            html: true,
+            type: 'warning'
+        });
     }
 
 };

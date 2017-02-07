@@ -8,17 +8,17 @@ export default class AgreableTelemetryDataExport {
         }
 
         // add sweet alert to page as it's not an npm package
-        let saScript = document.createElement('script');
-        saScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.2/sweetalert.min.js';
-        let firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(saScript, firstScriptTag);
+        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.2/sweetalert.min.js')
+            .done(() => {
+                $links.on('click', 'a', this.handleClick.bind(this));
+            })
+        ;
+
         let saStyle = document.createElement('link');
         saStyle.rel = 'stylesheet';
         saStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css';
         let firstStyleTag = document.getElementsByTagName('link')[0];
         firstStyleTag.parentNode.insertBefore(saStyle, firstStyleTag);
-
-        $links.on('click', 'a', this.handleClick.bind(this));
     }
 
     handleClick(e) {

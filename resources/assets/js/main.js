@@ -23,38 +23,62 @@ var AgreableTelemetryCalendar = function () {
     _createClass(AgreableTelemetryCalendar, [{
         key: 'insertDependencies',
         value: function insertDependencies() {
-            var _this = this;
-
-            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js');
-            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js').done(function () {
-                _this.initialize();
-            });
-
             var fcStyle = document.createElement('link');
             fcStyle.rel = 'stylesheet';
             fcStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css';
             var firstStyleTag = document.getElementsByTagName('link')[0];
             firstStyleTag.parentNode.insertBefore(fcStyle, firstStyleTag);
+
+            // add sweet alert to page as it's not an npm package
+            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.2/sweetalert.min.js');
+            var saStyle = document.createElement('link');
+            saStyle.rel = 'stylesheet';
+            saStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css';
+            firstStyleTag.parentNode.insertBefore(saStyle, firstStyleTag);
+
+            this.initialize();
         }
     }, {
         key: 'initialize',
         value: function initialize() {
+            var _this = this;
+
             // insert container div
             $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
 
+            // fetch data
+            $.ajax({
+                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?&api_token=' + telemetry_config.token,
+                success: function success(data) {
+                    _this.initCalendar(data.acquisitions);
+                }
+            });
+        }
+    }, {
+        key: 'initCalendar',
+        value: function initCalendar(data) {
+            var _this2 = this;
+
             $('#calendar').fullCalendar({
-                events: [{
-                    title: 'event1',
-                    start: '2017-02-01'
-                }, {
-                    title: 'event2',
-                    start: '2017-02-05',
-                    end: '2017-02-07'
-                }, {
-                    title: 'event3',
-                    start: '2017-03-09T12:30:00',
-                    allDay: false // will make the time show
-                }]
+                events: data,
+                eventClick: function eventClick(calEvent) {
+                    _this2.getAcquisitionInformation(calEvent.id);
+                }
+            });
+        }
+    }, {
+        key: 'getAcquisitionInformation',
+        value: function getAcquisitionInformation(id) {
+            $.ajax({
+                url: 'http://local.telemetry.report/api/v1/acquisitions/' + id + '/promotion/metadata?api_token=' + telemetry_config.token,
+                success: function success(data) {
+                    sweetAlert({
+                        title: '<span style="color:#000">' + data.title + '</span>',
+                        text: '<ul style="color:#000;text-align:left;">' + '<li><b>URL:</b> <a href="' + data.url + '">' + data.url + '</a></li>' + '<li><b>Entries:</b> ' + data.totalEntries + '</li>' + (data.corrects ? '<li><b>Correct entries:</b> ' + data.corrects + '</li>' : '') + '<li><b>New subscribers:</b> ' + data.newSubscribers + '</li>' + '</ul>',
+                        html: true,
+                        type: 'info'
+                    });
+                }
             });
         }
     }]);
@@ -78,6 +102,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AgreableTelemetryDataExport = function () {
     function AgreableTelemetryDataExport() {
+        var _this = this;
+
         _classCallCheck(this, AgreableTelemetryDataExport);
 
         var $links = $('#wp-admin-bar-promo-downloads');
@@ -87,23 +113,21 @@ var AgreableTelemetryDataExport = function () {
         }
 
         // add sweet alert to page as it's not an npm package
-        var saScript = document.createElement('script');
-        saScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.2/sweetalert.min.js';
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(saScript, firstScriptTag);
+        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.2/sweetalert.min.js').done(function () {
+            $links.on('click', 'a', _this.handleClick.bind(_this));
+        });
+
         var saStyle = document.createElement('link');
         saStyle.rel = 'stylesheet';
         saStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css';
         var firstStyleTag = document.getElementsByTagName('link')[0];
         firstStyleTag.parentNode.insertBefore(saStyle, firstStyleTag);
-
-        $links.on('click', 'a', this.handleClick.bind(this));
     }
 
     _createClass(AgreableTelemetryDataExport, [{
         key: 'handleClick',
         value: function handleClick(e) {
-            var _this = this;
+            var _this2 = this;
 
             e.preventDefault();
 
@@ -112,15 +136,15 @@ var AgreableTelemetryDataExport = function () {
                 success: function success(data) {
                     if (data.status === 200) {
                         // show success modal
-                        _this.showSuccessModal(data.data.password);
+                        _this2.showSuccessModal(data.data.password);
                     } else {
                         // show error modal
-                        _this.showErrorModal();
+                        _this2.showErrorModal();
                     }
                 },
                 error: function error(data) {
                     // show error modal
-                    _this.showErrorModal();
+                    _this2.showErrorModal();
                 }
             });
         }

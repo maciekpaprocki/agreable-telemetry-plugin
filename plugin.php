@@ -84,6 +84,15 @@ class AgreableTelemetryPlugin
 		// register & include JS
 		wp_register_script( 'agreable-telemetry-plugin-script', "{$dir}resources/assets/js/main.js", array('jquery') );
 		wp_enqueue_script('agreable-telemetry-plugin-script');
+		wp_register_script('agreable-telemetry-plugin-dep-moment', 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js');
+		wp_enqueue_script('agreable-telemetry-plugin-dep-moment');
+		wp_register_script('agreable-telemetry-plugin-dep-fallcalendar', 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js');
+		wp_enqueue_script('agreable-telemetry-plugin-dep-fallcalendar', array('jquery'));
+		wp_localize_script('agreable-telemetry-plugin-dep-fallcalendar', 'telemetry_config', array(
+			'team_id' => get_field('telemetry_team_id', 'telemetry-configuration'),
+			'token' => get_field('telemetry_api_key', 'telemetry-configuration')
+		));
+		wp_enqueue_script('telemetry-config');
 	}
 
 	public function setDefaultThankYouTitle($field)

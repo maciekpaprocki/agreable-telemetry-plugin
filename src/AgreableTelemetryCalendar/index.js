@@ -9,41 +9,60 @@ export default class AgreableTelemetryCalendar {
     }
 
     insertDependencies() {
-        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js');
-        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js')
-            .done(() => {
-                this.initialize()
-            })
-        ;
-
         let fcStyle = document.createElement('link');
         fcStyle.rel = 'stylesheet';
         fcStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css';
         let firstStyleTag = document.getElementsByTagName('link')[0];
         firstStyleTag.parentNode.insertBefore(fcStyle, firstStyleTag);
+
+        // add sweet alert to page as it's not an npm package
+        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.2/sweetalert.min.js');
+        let saStyle = document.createElement('link');
+        saStyle.rel = 'stylesheet';
+        saStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css';
+        firstStyleTag.parentNode.insertBefore(saStyle, firstStyleTag);
+
+        this.initialize();
     }
 
     initialize() {
         // insert container div
         $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
 
+        // fetch data
+        $.ajax({
+            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?&api_token=' + telemetry_config.token,
+            success: (data) => {
+                this.initCalendar(data.acquisitions);
+            }
+        })
+    }
+
+    initCalendar(data) {
         $('#calendar').fullCalendar({
-            events: [
-                {
-                    title  : 'event1',
-                    start  : '2017-02-01'
-                },
-                {
-                    title  : 'event2',
-                    start  : '2017-02-05',
-                    end    : '2017-02-07'
-                },
-                {
-                    title  : 'event3',
-                    start  : '2017-03-09T12:30:00',
-                    allDay : false // will make the time show
-                }
-            ]
+            events: data,
+            eventClick: (calEvent) => {
+                this.getAcquisitionInformation(calEvent.id);
+            }
+        });
+    }
+
+    getAcquisitionInformation(id) {
+        $.ajax({
+            url: 'http://local.telemetry.report/api/v1/acquisitions/' + id + '/promotion/metadata?api_token=' + telemetry_config.token,
+            success: (data) => {
+                sweetAlert({
+                    title: '<span style="color:#000">' + data.title + '</span>',
+                    text: '<ul style="color:#000;text-align:left;">'
+                        + '<li><b>URL:</b> <a href="' + data.url + '">' + data.url + '</a></li>'
+                        + '<li><b>Entries:</b> ' + data.totalEntries + '</li>'
+                        + (data.corrects ? '<li><b>Correct entries:</b> ' + data.corrects + '</li>' : '')
+                        + '<li><b>New subscribers:</b> ' + data.newSubscribers + '</li>'
+                        + '</ul>',
+                    html: true,
+                    type: 'info'
+                });
+            }
         });
     }
 

@@ -2,21 +2,50 @@
 
 /** @var \Herbert\Framework\Panel $panel */
 
-$args = array(
-  /* (string) The title displayed on the options page. Required. */
-  'page_title' => 'Telemetry Configuration',
-  'menu_title' => 'Telemetry',
-  'menu_slug' => 'telemetry-configuration',
-  'capability' => 'manage_options',
-  'position' => false,
-  'parent_slug' => '',
-  'icon_url' => 'dashicons-chart-area',
-  'redirect' => true,
-  'post_id' => 'telemetry-configuration',
-  'autoload' => false,
-);
+// Main menu item
+acf_add_options_page(array(
+	/* (string) The title displayed on the options page. Required. */
+	'page_title' => 'Telemetry',
+	'menu_title' => 'Telemetry',
+	'menu_slug' => 'telemetry',
+	'capability' => 'manage_options',
+	'position' => false,
+	'parent_slug' => '',
+	'icon_url' => 'dashicons-chart-area',
+	'redirect' => true,
+	'post_id' => 'telemetry',
+	'autoload' => false,
+));
 
-acf_add_options_page($args);
+// Configuration options
+acf_add_options_page(array(
+	/* (string) The title displayed on the options page. Required. */
+	'page_title' => 'Telemetry Configuration',
+	'menu_title' => 'Configuration',
+	'menu_slug' => 'telemetry-configuration',
+	'capability' => 'manage_options',
+	'position' => false,
+	'parent_slug' => 'telemetry',
+	'icon_url' => '',
+	'redirect' => true,
+	'post_id' => 'telemetry-configuration',
+	'autoload' => false,
+));
+
+// Acquisitions calender
+acf_add_options_page(array(
+	/* (string) The title displayed on the options page. Required. */
+	'page_title' => 'Telemetry Calendar',
+	'menu_title' => 'Calendar',
+	'menu_slug' => 'telemetry-calendar',
+	'capability' => 'manage_options',
+	'position' => false,
+	'parent_slug' => 'telemetry',
+	'icon_url' => '',
+	'redirect' => true,
+	'post_id' => 'telemetry-calendar',
+	'autoload' => false,
+));
 
 if (function_exists('acf_add_local_field_group')):
 
@@ -95,9 +124,29 @@ acf_add_local_field_group(array(
     'location' => array(
         array(
             array(
-        'param' => 'options_page',
+        		'param' => 'options_page',
                 'operator' => '==',
                 'value' => 'telemetry-configuration',
+            ),
+        ),
+    ),
+    'menu_order' => 11,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'top',
+    'instruction_placement' => 'label',
+));
+
+acf_add_local_field_group(array(
+    'key' => 'group_agreable_telemetry_calendar',
+    'title' => 'Acquisitions Calendar',
+    'fields' => array(),
+    'location' => array(
+        array(
+            array(
+        		'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'telemetry-calendar',
             ),
         ),
     ),

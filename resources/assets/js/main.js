@@ -86,9 +86,18 @@ var AgreableTelemetryPlugin = exports.AgreableTelemetryPlugin = function () {
 
 ;
 
+var AgreableTelemetryCalendar = exports.AgreableTelemetryCalendar = function AgreableTelemetryCalendar() {
+    _classCallCheck(this, AgreableTelemetryCalendar);
+
+    console.log('hello');
+};
+
+;
+
 window.onload = function () {
-    // get shit started
     var exportPlugin = new AgreableTelemetryPlugin();
+
+    var acquisitionCalendar = new AgreableTelemetryCalendar();
 };
 
 },{}]},{},[1])(1)

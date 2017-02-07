@@ -56,6 +56,7 @@ class AgreableTelemetryPlugin
 		add_action('wp_before_admin_bar_render', array($downloadEntries, 'enqueue'), 10, 1);
 		add_action('dp_duplicate_post', array($handleDuplicate, 'handle'), 10, 2);
 		add_action( 'wp_enqueue_scripts', array($this, 'input_admin_enqueue_scripts'), 10, 3);
+		add_action( 'admin_enqueue_scripts', array($this, 'input_admin_enqueue_scripts'), 10, 3);
 	}
 
 	/*

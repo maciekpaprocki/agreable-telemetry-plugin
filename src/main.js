@@ -64,7 +64,16 @@ export class AgreableTelemetryPlugin {
 
 };
 
+export class AgreableTelemetryCalendar {
+
+    constructor() {
+        console.log('hello');
+    }
+
+};
+
 window.onload = () => {
-    // get shit started
     let exportPlugin = new AgreableTelemetryPlugin();
+
+    let acquisitionCalendar = new AgreableTelemetryCalendar();
 }

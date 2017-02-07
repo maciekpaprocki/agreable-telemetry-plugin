@@ -43,14 +43,27 @@ var AgreableTelemetryCalendar = function () {
         value: function initialize() {
             var _this = this;
 
+            var start = moment().year() + '-' + moment().month() + '-01';
+            var end = moment().year() + '-' + moment().month() + '-' + moment().daysInMonth();
+
             // insert container div
             $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
 
             // fetch data
             $.ajax({
-                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?&api_token=' + telemetry_config.token,
+                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
                 success: function success(data) {
                     _this.initCalendar(data.acquisitions);
+                }
+            });
+        }
+    }, {
+        key: 'refreshData',
+        value: function refreshData(view, element) {
+            $.ajax({
+                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token,
+                success: function success(data) {
+                    $('#calendar').fullCalendar('renderEvents', data.acquisitions);
                 }
             });
         }
@@ -60,9 +73,12 @@ var AgreableTelemetryCalendar = function () {
             var _this2 = this;
 
             $('#calendar').fullCalendar({
-                events: data,
+                // events: data,
                 eventClick: function eventClick(calEvent) {
                     _this2.getAcquisitionInformation(calEvent.id);
+                },
+                viewRender: function viewRender(view, element) {
+                    _this2.refreshData(view, element);
                 }
             });
         }
@@ -77,6 +93,14 @@ var AgreableTelemetryCalendar = function () {
                         text: '<ul style="color:#000;text-align:left;">' + '<li><b>URL:</b> <a href="' + data.url + '">' + data.url + '</a></li>' + '<li><b>Entries:</b> ' + data.totalEntries + '</li>' + (data.corrects ? '<li><b>Correct entries:</b> ' + data.corrects + '</li>' : '') + '<li><b>New subscribers:</b> ' + data.newSubscribers + '</li>' + '</ul>',
                         html: true,
                         type: 'info'
+                    });
+                },
+                error: function error() {
+                    sweetAlert({
+                        title: '<span style="color:#000">There was a problem getting the data for this promotion</span>',
+                        text: '<p style="color:#000">Something went a bit wrong, but we\'re not sure what. Drop us an email at <a href="mailto:jon.sherrard@shortlist.com">jon.sherrard@shortlist.com</a> and we\'ll take a look into it for you.</p>',
+                        html: true,
+                        type: 'error'
                     });
                 }
             });

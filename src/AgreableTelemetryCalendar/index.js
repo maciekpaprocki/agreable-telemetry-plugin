@@ -26,23 +26,38 @@ export default class AgreableTelemetryCalendar {
     }
 
     initialize() {
+        let start = moment().year() + '-' + moment().month() + '-01';
+        let end = moment().year() + '-' + moment().month() + '-' + moment().daysInMonth();
+
         // insert container div
         $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
 
         // fetch data
         $.ajax({
-            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?&api_token=' + telemetry_config.token,
+            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
             success: (data) => {
                 this.initCalendar(data.acquisitions);
             }
-        })
+        });
+    }
+
+    refreshData(view, element) {
+        $.ajax({
+            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token,
+            success: (data) => {
+                $('#calendar').fullCalendar('renderEvents', data.acquisitions);
+            }
+        });
     }
 
     initCalendar(data) {
         $('#calendar').fullCalendar({
-            events: data,
+            // events: data,
             eventClick: (calEvent) => {
                 this.getAcquisitionInformation(calEvent.id);
+            },
+            viewRender: (view, element) => {
+                this.refreshData(view, element);
             }
         });
     }
@@ -61,6 +76,14 @@ export default class AgreableTelemetryCalendar {
                         + '</ul>',
                     html: true,
                     type: 'info'
+                });
+            },
+            error: () => {
+                sweetAlert({
+                    title: '<span style="color:#000">There was a problem getting the data for this promotion</span>',
+                    text: '<p style="color:#000">Something went a bit wrong, but we\'re not sure what. Drop us an email at <a href="mailto:jon.sherrard@shortlist.com">jon.sherrard@shortlist.com</a> and we\'ll take a look into it for you.</p>',
+                    html: true,
+                    type: 'error'
                 });
             }
         });

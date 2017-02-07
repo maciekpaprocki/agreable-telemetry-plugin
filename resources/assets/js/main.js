@@ -9,11 +9,76 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-window.$ = window.$ || jQuery || window.jQuery;
+var AgreableTelemetryCalendar = function () {
+    function AgreableTelemetryCalendar() {
+        _classCallCheck(this, AgreableTelemetryCalendar);
 
-var AgreableTelemetryPlugin = exports.AgreableTelemetryPlugin = function () {
-    function AgreableTelemetryPlugin() {
-        _classCallCheck(this, AgreableTelemetryPlugin);
+        if (!$('body').hasClass('telemetry_page_telemetry-calendar')) {
+            return false;
+        }
+
+        this.insertDependencies();
+    }
+
+    _createClass(AgreableTelemetryCalendar, [{
+        key: 'insertDependencies',
+        value: function insertDependencies() {
+            var _this = this;
+
+            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js');
+            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js').done(function () {
+                _this.initialize();
+            });
+
+            var fcStyle = document.createElement('link');
+            fcStyle.rel = 'stylesheet';
+            fcStyle.href = 'https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css';
+            var firstStyleTag = document.getElementsByTagName('link')[0];
+            firstStyleTag.parentNode.insertBefore(fcStyle, firstStyleTag);
+        }
+    }, {
+        key: 'initialize',
+        value: function initialize() {
+            // insert container div
+            $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
+
+            $('#calendar').fullCalendar({
+                events: [{
+                    title: 'event1',
+                    start: '2017-02-01'
+                }, {
+                    title: 'event2',
+                    start: '2017-02-05',
+                    end: '2017-02-07'
+                }, {
+                    title: 'event3',
+                    start: '2017-03-09T12:30:00',
+                    allDay: false // will make the time show
+                }]
+            });
+        }
+    }]);
+
+    return AgreableTelemetryCalendar;
+}();
+
+exports.default = AgreableTelemetryCalendar;
+;
+
+},{}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AgreableTelemetryDataExport = function () {
+    function AgreableTelemetryDataExport() {
+        _classCallCheck(this, AgreableTelemetryDataExport);
 
         var $links = $('#wp-admin-bar-promo-downloads');
 
@@ -35,7 +100,7 @@ var AgreableTelemetryPlugin = exports.AgreableTelemetryPlugin = function () {
         $links.on('click', 'a', this.handleClick.bind(this));
     }
 
-    _createClass(AgreableTelemetryPlugin, [{
+    _createClass(AgreableTelemetryDataExport, [{
         key: 'handleClick',
         value: function handleClick(e) {
             var _this = this;
@@ -81,24 +146,32 @@ var AgreableTelemetryPlugin = exports.AgreableTelemetryPlugin = function () {
         }
     }]);
 
-    return AgreableTelemetryPlugin;
+    return AgreableTelemetryDataExport;
 }();
 
+exports.default = AgreableTelemetryDataExport;
 ;
 
-var AgreableTelemetryCalendar = exports.AgreableTelemetryCalendar = function AgreableTelemetryCalendar() {
-    _classCallCheck(this, AgreableTelemetryCalendar);
+},{}],3:[function(require,module,exports){
+'use strict';
 
-    console.log('hello');
-};
+var _AgreableTelemetryDataExport = require('./AgreableTelemetryDataExport');
 
-;
+var _AgreableTelemetryDataExport2 = _interopRequireDefault(_AgreableTelemetryDataExport);
+
+var _AgreableTelemetryCalendar = require('./AgreableTelemetryCalendar');
+
+var _AgreableTelemetryCalendar2 = _interopRequireDefault(_AgreableTelemetryCalendar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+window.$ = window.$ || jQuery || window.jQuery;
 
 window.onload = function () {
-    var exportPlugin = new AgreableTelemetryPlugin();
+    var exportPlugin = new _AgreableTelemetryDataExport2.default();
 
-    var acquisitionCalendar = new AgreableTelemetryCalendar();
+    var acquisitionCalendar = new _AgreableTelemetryCalendar2.default();
 };
 
-},{}]},{},[1])(1)
+},{"./AgreableTelemetryCalendar":1,"./AgreableTelemetryDataExport":2}]},{},[3])(3)
 });

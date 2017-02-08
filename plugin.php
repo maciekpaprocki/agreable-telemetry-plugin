@@ -113,6 +113,7 @@ class AgreableTelemetryPlugin
 	public function cssOverrides()
 	{
 		wp_add_inline_style('custom-style', ".acf-hide, th.acf-th.acf-th-text[data-key='telemetry_acqusition_competition_answers_answer_telemetry_id'] { display: none !important; }");
+		wp_add_inline_style('custom-style', ".telemetry_page_telemetry-calendar #post-body.columns-2 #postbox-container-1 {display: none;} .telemetry_page_telemetry-calendar #poststuff #post-body.columns-2 {margin-right: 0;}");
 	}
 
 	public function registerOrUpdateAcquisition($post_id, $post, $update)

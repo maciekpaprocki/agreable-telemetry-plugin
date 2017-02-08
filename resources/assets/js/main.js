@@ -41,27 +41,20 @@ var AgreableTelemetryCalendar = function () {
     }, {
         key: 'initialize',
         value: function initialize() {
-            var _this = this;
-
-            var start = moment().year() + '-' + moment().month() + '-01';
-            var end = moment().year() + '-' + moment().month() + '-' + moment().daysInMonth();
-
             // insert container div
             $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
 
-            // fetch data
-            $.ajax({
-                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
-                success: function success(data) {
-                    _this.initCalendar(data.acquisitions);
-                }
-            });
+            this.initCalendar();
         }
     }, {
         key: 'refreshData',
         value: function refreshData(view, element) {
+            var currentDate = $('#calendar').fullCalendar('getDate').format('YYYY-MM-DD');
+            var start = moment(currentDate).subtract(1, 'months').date(1).format('YYYY-MM-DD');
+            var end = moment(currentDate).add(2, 'months').date(0).format('YYYY-MM-DD');
+
             $.ajax({
-                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token,
+                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
                 success: function success(data) {
                     $('#calendar').fullCalendar('renderEvents', data.acquisitions);
                 }
@@ -69,16 +62,16 @@ var AgreableTelemetryCalendar = function () {
         }
     }, {
         key: 'initCalendar',
-        value: function initCalendar(data) {
-            var _this2 = this;
+        value: function initCalendar() /*data*/{
+            var _this = this;
 
             $('#calendar').fullCalendar({
                 // events: data,
                 eventClick: function eventClick(calEvent) {
-                    _this2.getAcquisitionInformation(calEvent.id);
+                    _this.getAcquisitionInformation(calEvent.id);
                 },
                 viewRender: function viewRender(view, element) {
-                    _this2.refreshData(view, element);
+                    _this.refreshData(view, element);
                 }
             });
         }

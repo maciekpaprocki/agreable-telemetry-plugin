@@ -26,31 +26,26 @@ export default class AgreableTelemetryCalendar {
     }
 
     initialize() {
-        let start = moment().year() + '-' + moment().month() + '-01';
-        let end = moment().year() + '-' + moment().month() + '-' + moment().daysInMonth();
-
         // insert container div
         $('#acf-group_agreable_telemetry_calendar .acf-fields').append($('<div id="calendar" />'));
 
-        // fetch data
-        $.ajax({
-            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
-            success: (data) => {
-                this.initCalendar(data.acquisitions);
-            }
-        });
+        this.initCalendar();
     }
 
     refreshData(view, element) {
+        let currentDate = $('#calendar').fullCalendar('getDate').format('YYYY-MM-DD');
+        let start = moment(currentDate).subtract(1, 'months').date(1).format('YYYY-MM-DD');
+        let end = moment(currentDate).add(2, 'months').date(0).format('YYYY-MM-DD');
+
         $.ajax({
-            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token,
+            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
             success: (data) => {
                 $('#calendar').fullCalendar('renderEvents', data.acquisitions);
             }
         });
     }
 
-    initCalendar(data) {
+    initCalendar(/*data*/) {
         $('#calendar').fullCalendar({
             // events: data,
             eventClick: (calEvent) => {

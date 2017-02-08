@@ -28,5 +28,7 @@
         "uglify-js": "2.7.x",
         "watchify": "3.9.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "randomcolor": "0.4.x"
+    }
 }

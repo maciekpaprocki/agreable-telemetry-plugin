@@ -1,3 +1,5 @@
+import randomColor from 'randomcolor';
+
 export default class AgreableTelemetryCalendar {
 
     constructor() {
@@ -40,6 +42,12 @@ export default class AgreableTelemetryCalendar {
         $.ajax({
             url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
             success: (data) => {
+                data.acquisitions.map((acquisition) => {
+                    acquisition['backgroundColor'] = randomColor({
+                        luminosity: 'dark',
+                        seed: acquisition.title
+                    });
+                });
                 $('#calendar').fullCalendar('renderEvents', data.acquisitions);
             }
         });

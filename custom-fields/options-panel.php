@@ -17,25 +17,20 @@ acf_add_options_page(array(
 	'autoload' => false,
 ));
 
-$user = wp_get_current_user();
-$user_roles = $user->roles;
-
-if (in_array('administrator', $user_roles)) {
-	// Configuration options
-	acf_add_options_page(array(
-		/* (string) The title displayed on the options page. Required. */
-		'page_title' => 'Telemetry Configuration',
-		'menu_title' => 'Configuration',
-		'menu_slug' => 'telemetry-configuration',
-		'capability' => 'manage_options',
-		'position' => false,
-		'parent_slug' => 'telemetry',
-		'icon_url' => '',
-		'redirect' => true,
-		'post_id' => 'telemetry-configuration',
-		'autoload' => false,
-	));
-}
+// Configuration options
+acf_add_options_page(array(
+	/* (string) The title displayed on the options page. Required. */
+	'page_title' => 'Telemetry Configuration',
+	'menu_title' => 'Configuration',
+	'menu_slug' => 'telemetry-configuration',
+	'capability' => 'manage_options',
+	'position' => false,
+	'parent_slug' => 'telemetry',
+	'icon_url' => '',
+	'redirect' => true,
+	'post_id' => 'telemetry-configuration',
+	'autoload' => false,
+));
 
 // Acquisitions calender
 acf_add_options_page(array(
@@ -43,7 +38,7 @@ acf_add_options_page(array(
 	'page_title' => 'Telemetry Calendar',
 	'menu_title' => 'Calendar',
 	'menu_slug' => 'telemetry-calendar',
-	'capability' => 'manage_options',
+	'capability' => 'publish_posts',
 	'position' => false,
 	'parent_slug' => 'telemetry',
 	'icon_url' => '',

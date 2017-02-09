@@ -8,7 +8,7 @@ acf_add_options_page(array(
 	'page_title' => 'Telemetry',
 	'menu_title' => 'Telemetry',
 	'menu_slug' => 'telemetry',
-	'capability' => 'manage_options',
+	'capability' => 'publish_posts',
 	'position' => false,
 	'parent_slug' => '',
 	'icon_url' => 'dashicons-chart-area',

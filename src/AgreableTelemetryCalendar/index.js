@@ -40,7 +40,7 @@ export default class AgreableTelemetryCalendar {
         let end = moment(currentDate).add(2, 'months').date(0).format('YYYY-MM-DD');
 
         $.ajax({
-            url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
+            url: telemetry_config.endpoint + '/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
             success: (data) => {
                 data.acquisitions.map((acquisition) => {
                     acquisition['backgroundColor'] = randomColor({
@@ -67,7 +67,7 @@ export default class AgreableTelemetryCalendar {
 
     getAcquisitionInformation(id) {
         $.ajax({
-            url: 'http://local.telemetry.report/api/v1/acquisitions/' + id + '/promotion/metadata?api_token=' + telemetry_config.token,
+            url: telemetry_config.endpoint + '/api/v1/acquisitions/' + id + '/promotion/metadata?api_token=' + telemetry_config.token,
             success: (data) => {
                 sweetAlert({
                     title: '<span style="color:#000">' + data.title + '</span>',

@@ -90,7 +90,8 @@ class AgreableTelemetryPlugin
 		wp_enqueue_script('agreable-telemetry-plugin-dep-fallcalendar', array('jquery'));
 		wp_localize_script('agreable-telemetry-plugin-dep-fallcalendar', 'telemetry_config', array(
 			'team_id' => get_field('telemetry_team_id', 'telemetry-configuration'),
-			'token' => get_field('telemetry_api_key', 'telemetry-configuration')
+			'token' => get_field('telemetry_api_key', 'telemetry-configuration'),
+			'endpoint' => Endpoint::get()
 		));
 		wp_enqueue_script('telemetry-config');
 	}

@@ -491,7 +491,7 @@ var AgreableTelemetryCalendar = function () {
             var end = moment(currentDate).add(2, 'months').date(0).format('YYYY-MM-DD');
 
             $.ajax({
-                url: 'http://local.telemetry.report/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
+                url: telemetry_config.endpoint + '/api/v1/team/' + telemetry_config.team_id + '/acquisitions?api_token=' + telemetry_config.token + '&start=' + start + '&end=' + end,
                 success: function success(data) {
                     data.acquisitions.map(function (acquisition) {
                         acquisition['backgroundColor'] = (0, _randomcolor2.default)({
@@ -522,7 +522,7 @@ var AgreableTelemetryCalendar = function () {
         key: 'getAcquisitionInformation',
         value: function getAcquisitionInformation(id) {
             $.ajax({
-                url: 'http://local.telemetry.report/api/v1/acquisitions/' + id + '/promotion/metadata?api_token=' + telemetry_config.token,
+                url: telemetry_config.endpoint + '/api/v1/acquisitions/' + id + '/promotion/metadata?api_token=' + telemetry_config.token,
                 success: function success(data) {
                     sweetAlert({
                         title: '<span style="color:#000">' + data.title + '</span>',

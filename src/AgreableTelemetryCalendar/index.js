@@ -44,7 +44,7 @@ export default class AgreableTelemetryCalendar {
             success: (data) => {
                 data.acquisitions.map((acquisition) => {
                     acquisition['backgroundColor'] = randomColor({
-                        luminosity: 'dark',
+                        luminosity: 'light',
                         seed: acquisition.title
                     });
                 });

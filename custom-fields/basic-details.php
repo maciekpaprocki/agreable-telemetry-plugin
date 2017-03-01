@@ -76,7 +76,8 @@ return array(
      'type' => 'checkbox',
      'choices' => array(
          'voucher' => 'Send Voucher',
-         'optins' => 'Add third party optins'
+         'optins' => 'Add third party optins',
+		 'address_book' => 'Add an Address Book'
      ),
      'layout' => 'horizontal',
      'wrapper' => array(

@@ -21,6 +21,7 @@ class PayloadBuilder
 			if (in_array('voucher', $telemetryData['additional_features'])) {
 				$payload['voucher'] = self::buildVoucher($telemetryData);
 			}
+			$payload['with_address_book'] = in_array('address_book', $telemetryData['additional_features']);
 		}
 		return $payload;
 	}

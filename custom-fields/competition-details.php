@@ -8,6 +8,7 @@ return array(
         'simplify' => true,
         'no_return' => true,
         'placeholder' => 'What is the new Burger King burger called?',
+		'required' => 1,
     ),
     array(
         'key' => 'telemetry_acqusition_competition_question_telemetry_id',
@@ -36,6 +37,7 @@ return array(
                 'label' => 'Answer Text',
                 'name' => 'answer_text',
                 'type' => 'text',
+				'required' => 1,
             ),
             array(
                 'key' => 'telemetry_acquisition_competition_answers_answer_correct',

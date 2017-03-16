@@ -27,7 +27,8 @@ return array(
 		'key' => 'telemetry_acquisition_voucher_email_subject',
 		'label' => 'Email Subject',
 		'name' => 'voucher_email_subject',
-		'type' => 'text'
+		'type' => 'text',
+		'required' => 1,
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_brand_header',
@@ -36,6 +37,7 @@ return array(
 		'type' => 'image',
 		'return_format' => 'url',
 		'preview_size' => 'full',
+		'required' => 1,
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_hero_image',
@@ -44,18 +46,21 @@ return array(
 		'type' => 'image',
 		'return_format' => 'url',
 		'preview_size' => 'full',
+		'required' => 1,
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_heading',
 		'label' => 'Heading',
 		'name' => 'voucher_heading',
-		'type' => 'text'
+		'type' => 'text',
+		'required' => 1,
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_description',
 		'label' => 'Description',
 		'name' => 'voucher_description',
-		'type' => 'strict_wysiwyg'
+		'type' => 'strict_wysiwyg',
+		'required' => 1,
 	),
 	array(
 		'key' => 'telemetry_acquisition_voucher_gen_code',

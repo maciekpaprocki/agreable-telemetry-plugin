@@ -15,6 +15,7 @@ return array(
             'name' => 'optin_name',
             'type' => 'text',
             'placeholder' => 'Burger King',
+			'required' => 1,
         ),
         array(
             'key' => 'telemetry_acquisition_optin_optin_label',
@@ -22,6 +23,7 @@ return array(
             'name' => 'optin_label',
             'type' => 'text',
             'placeholder' => 'Would you like to receive updates from Burger King?',
+			'required' => 1,
         ),
         array(
             'key' => 'telemetry_acqusition_optin_optin_telemetry_id',

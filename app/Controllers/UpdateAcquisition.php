@@ -27,7 +27,7 @@ class UpdateAcquisition
 
     public function doUpdate()
     {
-        $token = get_field('telemetry_options_telemetry_api_key', 'telemetry-configuration');
+        $token = getenv('TELEMETRY_API_KEY');
         $response = $this->client->put(
             "api/v1/acquisitions",
             [

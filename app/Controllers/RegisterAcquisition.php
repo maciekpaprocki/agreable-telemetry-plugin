@@ -26,7 +26,7 @@ class RegisterAcquisition
 
     public function doRegister()
     {
-        $token = get_field('telemetry_api_key', 'telemetry-configuration');
+        $token = getenv('TELEMETRY_API_KEY');
         $response = $this->client->post(
             "api/v1/acquisitions",
             [

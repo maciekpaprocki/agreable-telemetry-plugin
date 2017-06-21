@@ -8,7 +8,7 @@ class DownloadEntries
 {
     public function enqueue($params)
     {
-        $this->token = get_field('telemetry_api_key', 'telemetry-configuration');
+        $this->token = getenv('TELEMETRY_API_KEY');
         $post = new TimberPost;
         $check = UsesTelemetry::check($post);
         if (!is_admin() && $check && $this->token) {

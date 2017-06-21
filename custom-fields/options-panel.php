@@ -54,17 +54,6 @@ acf_add_local_field_group(array(
     'title' => 'Telemetry Configurations',
     'fields' => array(
         array(
-            'key' => 'telemetry_options_telemetry_api_key',
-            'label' => 'Telemetry API Key',
-            'name' => 'telemetry_api_key',
-            'type' => 'text',
-            'instructions' => 'The Telemetry API key for this top level account/team',
-            'placeholder' => 'ABCDEFGHI123456789',
-            'wrapper' => array(
-                'width' => '49%',
-            ),
-        ),
-        array(
             'key' => 'telemetry_options_telemetry_default_brand_id',
             'label' => 'Default Brand ID',
             'name' => 'telemetry_default_brand_id',
@@ -97,7 +86,7 @@ acf_add_local_field_group(array(
             'type' => 'checkbox',
             'instructions' => 'Choose which brands are available for this site',
             'wrapper' => array(
-                'width' => '49%',
+                'width' => '99%',
             ),
             'choices' => array(
 

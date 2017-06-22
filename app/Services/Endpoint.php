@@ -4,16 +4,10 @@ class Endpoint
 {
     public static function get()
     {
-        $protocol = (getenv('WP_ENV') !== 'development')
-            ? 'https://' : 'http://';
-
         $override = getenv('TELEMETRY_ENDPOINT');
         if ($override) {
-            return $protocol.$override;
+            return $override;
         }
-        $level = (getenv('WP_ENV') !== 'development')
-            ? getenv('WP_ENV') : 'local';
-
-        return $protocol.$level.".telemetry.report/";
+        return "https://staging.telemetry.report/";
     }
 }

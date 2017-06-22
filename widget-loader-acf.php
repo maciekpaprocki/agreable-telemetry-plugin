@@ -148,6 +148,7 @@ $widget_config = array(
 			'name' => 'brand_ids',
 			'type' => 'checkbox',
 			'instructions' => 'Choose which brands are available for this acquisition',
+			'required' => true,
 			'wrapper' => array(
 				'width' => '49%',
 			),

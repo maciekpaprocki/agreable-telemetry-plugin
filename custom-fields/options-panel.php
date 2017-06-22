@@ -54,11 +54,11 @@ acf_add_local_field_group(array(
     'title' => 'Telemetry Configurations',
     'fields' => array(
         array(
-            'key' => 'telemetry_options_telemetry_default_brand_id',
-            'label' => 'Default Brand ID',
-            'name' => 'telemetry_default_brand_id',
+            'key' => 'telemetry_options_telemetry_team_id',
+            'label' => 'Team ID',
+            'name' => 'telemetry_team_id',
             'type' => 'select',
-            'instructions' => 'The default Telemetry Brand ID for this site.',
+            'instructions' => 'The default Telemetry Team ID for this site.',
             'wrapper' => array(
                 'width' => '49%',
             ),
@@ -67,11 +67,11 @@ acf_add_local_field_group(array(
             )
         ),
         array(
-            'key' => 'telemetry_options_telemetry_team_id',
-            'label' => 'Team ID',
-            'name' => 'telemetry_team_id',
+            'key' => 'telemetry_options_telemetry_default_brand_id',
+            'label' => 'Default Brand ID',
+            'name' => 'telemetry_default_brand_id',
             'type' => 'select',
-            'instructions' => 'The default Telemetry Team ID for this site.',
+            'instructions' => 'The default Telemetry Brand ID for this site.',
             'wrapper' => array(
                 'width' => '49%',
             ),

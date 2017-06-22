@@ -158,32 +158,35 @@ class AgreableTelemetryPlugin
 
 	public function loadBrands($field)
 	{
-		$baseUri = Endpoint::get();
-		$token = get_field('telemetry_api_key', 'telemetry-configuration');
-		if ($token) {
-			$client = new Client([
-				'base_uri' => $baseUri,
-				'timeout'  => 10.0
-			]);
-			try {
-				$response = $client->get(
-					'api/v1/team/brand',
-					[
-						'query' => ['api_token' => $token]
-					]
-				);
-				$body = (string) $response->getBody();
-				$responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
-				foreach ($responseObject['data'] as $key => $brand) {
-					$field['choices'][$brand['id']] = $brand['name'];
-				}
-				if ($field['type'] == 'checkbox') {
-					foreach ($responseObject['data'] as $key => $brand) {
-						array_push($field['default_value'], $brand['id']);
+		$team_id = get_field('telemetry_options_telemetry_team_id', 'telemetry-configuration');
+		if ($team_id) {
+			$baseUri = Endpoint::get();
+			$token = get_field('telemetry_api_key', 'telemetry-configuration');
+			if ($token) {
+				$client = new Client([
+					'base_uri' => $baseUri,
+					'timeout'  => 10.0
+				]);
+				try {
+					$response = $client->get(
+						"api/v1/team/$team_id",
+						[
+							'query' => ['api_token' => $token]
+						]
+					);
+					$body = (string) $response->getBody();
+					$responseObject = json_decode($body, true, JSON_PRETTY_PRINT);
+					foreach ($responseObject['data']['brands'] as $key => $brand) {
+						$field['choices'][$brand['id']] = $brand['name'];
 					}
+					if ($field['type'] == 'checkbox') {
+						foreach ($responseObject['data']['brands'] as $key => $brand) {
+							array_push($field['default_value'], $brand['id']);
+						}
+					}
+				} catch (ServerException $exception) {
+					update_field('telemetry_api_key', '', 'telemetry-configuration');
 				}
-			} catch (ServerException $exception) {
-				update_field('telemetry_api_key', '', 'telemetry-configuration');
 			}
 		}
 		return $field;
